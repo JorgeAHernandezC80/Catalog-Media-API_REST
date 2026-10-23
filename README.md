@@ -49,6 +49,7 @@ Siga estos pasos para clonar, configurar e iniciar el proyecto localmente en su 
 git clone https://github.com/JorgeAHernandezC80/Catalog-Media-API_REST.git
 cd Catalog-Media-API_REST
 ```
+```
 ### 2. Instalar dependencias esenciales
 ```bash
 npm install
@@ -59,6 +60,7 @@ Cree un archivo llamado `.env` en la raíz del proyecto con los siguientes pará
 PORT=5000
 MONGO_URI=mongodb://127.0.0.1:27017/catalog_media_db
 ```
+
 ### 4. Arrancar el servidor en modo desarrollo
 El proyecto utiliza `nodemon` para reiniciarse automáticamente ante cualquier cambio:
 ```bash
@@ -88,6 +90,7 @@ La API cuenta con cinco módulos independientes que exponen de forma exacta la m
 * **Curso:** Proyecto Integrado II - Desarrollo de Aplicaciones Web
 * **Semestre:** Sexto Semestre - PREICA2602B020099
 
+```
 ## 7. Licencia y Derechos de Autor
 
 Copyright (c) 2026 Jorge A. Hernández C. Todos los derechos reservados. Este software y su código fuente son propiedad de Jorge A. Hernández C. No se concede ningún permiso para usar, copiar, modificar, fusionar, publish, distribuir, sublicenciar y/o vender copias de este software, ni para permitir que terceros lo hagan, sin el consentimiento previo y por escrito del autor. Todos los derechos no otorgados expresamente quedan reservados. Ver LICENSE.
@@ -95,7 +98,6 @@ Copyright (c) 2026 Jorge A. Hernández C. Todos los derechos reservados. Este so
 Copyright (c) 2026 Jorge A. Hernández C. All rights reserved. This software and its source code are the property of Jorge A. Hernández C. No permission is granted to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of this software, or to permit persons to whom it is furnished to do so, without the prior written consent of the author. All rights not expressly granted are reserved.
 
 ---
-
 ### Proyectos Académicos y Uso Institucional
 Este repositorio fue creado con fines estrictamente educativos y evaluativos para el curso **Proyecto Integrado II - Desarrollo de Aplicaciones Web** de la **Institución Universitaria Digital de Antioquia (IU Digital)**. Queda autorizado el acceso y revisión del material al docente evaluador **Federico Henao** y a los cuerpos directivos institucionales pertinentes.
 
