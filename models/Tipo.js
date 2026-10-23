@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
+const { Schema, model } = require('mongoose');
 
-const TipoSchema = new mongoose.Schema({
-  nombre: { type: String, required: [true, 'El nombre es obligatorio'], trim: true },
-  descripcion: { type: String }
+const TipoSchema = new Schema({
+    nombre: { type: String, required: [true, 'El nombre es obligatorio'], trim: true },
+    descripcion: { type: String, trim: true }
 }, { timestamps: true });
 
-module.exports = mongoose.model('Tipo', TipoSchema);
+module.exports = model('Tipo', TipoSchema);

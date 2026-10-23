@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
+const { Schema, model } = require('mongoose');
 
-const DirectorSchema = new mongoose.Schema({
-  nombres: { type: String, required: [true, 'Los nombres son obligatorios'], trim: true },
-  estado: { type: String, enum: ['Activo', 'Inactivo'], default: 'Activo' }
+const DirectorSchema = new Schema({
+    nombres: { type: String, required: [true, 'El nombre es obligatorio'], trim: true },
+    estado: { type: String, required: true, enum: ['Activo', 'Inactivo'], default: 'Activo' }
 }, { timestamps: true });
 
-module.exports = mongoose.model('Director', DirectorSchema);
+module.exports = model('Director', DirectorSchema);

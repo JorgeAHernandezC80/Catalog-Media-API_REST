@@ -3,16 +3,24 @@ const router = Router();
 const { 
     createMedia, 
     obtenerCatalogo, 
-    obtenerMediaPorId 
+    obtenerMediaPorId,
+    actualizarMedia,
+    eliminarMedia 
 } = require('../controllers/mediaController');
 
-// POST: / (Se encarga de crear una producción)
+// 1. CREAR una nueva producción (Película o Serie)
 router.post('/', createMedia);
 
-// GET: / (Se encarga de listar todo el catálogo completo)
+// 2. OBTENER todo el catálogo con población de datos relacionales
 router.get('/', obtenerCatalogo);
 
-// GET: /:id (Se encarga de buscar una producción específica por su ID)
+// 3. OBTENER el detalle completo de una producción por su ID
 router.get('/:id', obtenerMediaPorId);
+
+// 4. ACTUALIZAR una producción por ID validando referencias existentes
+router.put('/:id', actualizarMedia);
+
+// 5. ELIMINAR una producción por ID del catálogo
+router.delete('/:id', eliminarMedia);
 
 module.exports = router;

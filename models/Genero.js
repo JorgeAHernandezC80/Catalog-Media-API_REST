@@ -1,9 +1,10 @@
-const mongoose = require('mongoose');
+const { Schema, model } = require('mongoose');
 
-const GeneroSchema = new mongoose.Schema({
-  nombre: { type: String, required: [true, 'Nombre obligatorio'], trim: true },
-  estado: { type: String, enum: ['Activo', 'Inactivo'], default: 'Activo' },
-  descripcion: { type: String }
+const GeneroSchema = new Schema({
+    nombre: { type: String, required: [true, 'El nombre es obligatorio'], trim: true },
+    estado: { type: String, required: true, enum: ['Activo', 'Inactivo'], default: 'Activo' },
+    descripcion: { type: String, trim: true }
 }, { timestamps: true });
 
-module.exports = mongoose.model('Genero', GeneroSchema);
+module.exports = model('Genero', GeneroSchema);
+

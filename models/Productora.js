@@ -1,10 +1,10 @@
-const mongoose = require('mongoose');
+const { Schema, model } = require('mongoose');
 
-const ProductoraSchema = new mongoose.Schema({
-  nombre: { type: String, required: [true, 'Nombre obligatorio'], trim: true },
-  estado: { type: String, enum: ['Activo', 'Inactivo'], default: 'Activo' },
-  eslogan: { type: String },
-  descripcion: { type: String }
+const ProductoraSchema = new Schema({
+    nombre: { type: String, required: [true, 'El nombre es obligatorio'], trim: true },
+    estado: { type: String, required: true, enum: ['Activo', 'Inactivo'], default: 'Activo' },
+    eslogan: { type: String, trim: true },
+    descripcion: { type: String, trim: true }
 }, { timestamps: true });
 
-module.exports = mongoose.model('Productora', ProductoraSchema);
+module.exports = model('Productora', ProductoraSchema);
