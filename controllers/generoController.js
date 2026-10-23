@@ -1,22 +1,76 @@
 const Genero = require('../models/Genero');
 
+// 1. CREAR un nuevo género
 const crearGenero = async (req, res) => {
-  try {
-    const nuevo = new Genero(req.body);
-    await nuevo.save();
-    res.status(201).json(nuevo);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
+    try {
+        const nuevoGenero = new Genero(req.body);
+        await nuevoGenero.save();
+        res.status(201).json(nuevoGenero);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
 };
 
+// 2. OBTENER todos los géneros
 const obtenerGeneros = async (req, res) => {
-  try {
-    const lista = await Genero.find();
-    res.status(200).json(lista);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+    try {
+        const generos = await Genero.find();
+        res.status(200).json(generos);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 };
 
-module.exports = { crearGenero, obtenerGeneros };
+// 3. OBTENER un género por ID
+const obtenerGeneroPorId = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const genero = await Genero.findById(id);
+        if (!genero) {
+            return res.status(404).json({ message: 'No se encontró el género con ese ID' });
+        }
+        res.status(200).json(genero);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
+// 4. ACTUALIZAR un género por ID
+const actualizarGenero = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const generoActualizado = await Genero.findByIdAndUpdate(id, req.body, { 
+            new: true, 
+            runValidators: true 
+        });
+        if (!generoActualizado) {
+            return res.status(404).json({ message: 'No se encontró el género para actualizar' });
+        }
+        res.status(200).json(generoActualizado);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
+// 5. ELIMINAR un género por ID
+const eliminarGenero = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const generoEliminado = await Genero.findByIdAndDelete(id);
+        if (!generoEliminado) {
+            return res.status(404).json({ message: 'No se encontró el género para eliminar' });
+        }
+        res.status(200).json({ message: 'Género eliminado correctamente' });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
+// Exportación de los métodos del controlador para utilizarlos en el archivo de rutas
+module.exports = {
+    crearGenero,
+    obtenerGeneros,
+    obtenerGeneroPorId,
+    actualizarGenero,
+    eliminarGenero
+};

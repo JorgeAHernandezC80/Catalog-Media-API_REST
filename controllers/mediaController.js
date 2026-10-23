@@ -87,8 +87,6 @@ const obtenerMediaPorId = async (req, res) => {
     }
 };
 
-// ... (Tus importaciones y métodos anteriores: createMedia, obtenerCatalogo, obtenerMediaPorId permanecen igual)
-
 // 4. ACTUALIZAR una producción por ID (Regla de negocio: valida llaves foráneas si se envían)
 const actualizarMedia = async (req, res) => {
     try {
@@ -111,7 +109,7 @@ const actualizarMedia = async (req, res) => {
 
         const mediaActualizada = await Media.findByIdAndUpdate(id, req.body, { 
             new: true,          // Devuelve el documento ya modificado
-            runValidators: true // Fuerza a que se cumplan las validaciones del modelo (ej. formato de URL)
+            runValidators: true // Forza a que se cumplan las validaciones del modelo (ej. formato de URL)
         });
 
         if (!mediaActualizada) {
