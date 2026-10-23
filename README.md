@@ -13,16 +13,15 @@ Desarrollado para el curso **Proyecto Integrado II - Desarrollo de Aplicaciones 
 4. [Instalación y Levantamiento Rápido](#4-instalación-y-levantamiento-rápido)
 5. [Estructura del Catálogo (Endpoints Simétricos 1 al 5)](#5-estructura-del-catálogo-endpoints-simétricos-1-al-5)
 6. [Autores y Créditos](#6-autores-y-créditos)
+7. [Licencia y Derechos de Autor](#7-Licencia-y-Derechos-de-Autor)
 
 ---
-
 ## 1. Descripción General & Propósito
 Este proyecto resuelve la gestión de contenidos para una plataforma de streaming multimedia. Permite crear, consultar, editar y eliminar películas o series asegurando que cada título esté obligatoriamente vinculado a entidades reales de la plataforma (Directores, Géneros, Productoras y Tipos).
 
 **Lo más importante en 90 segundos:** La API cuenta con un diseño de rutas totalmente simétrico y un controlador centralizado que verifica la existencia de llaves foráneas antes de alterar la base de datos, resolviendo las consultas mediante la función `populate` de Mongoose para entregar objetos enriquecidos.
 
 ---
-
 ## 2. Arquitectura del Proyecto (Patrón MVC)
 El proyecto implementa el patrón **Modelo-Vista-Controlador (MVC)** para separar responsabilidades de forma limpia:
 
@@ -33,7 +32,6 @@ El proyecto implementa el patrón **Modelo-Vista-Controlador (MVC)** para separa
 * **`Server.js`**: Punto de entrada de la aplicación y configuración de middlewares globales.
 
 ---
-
 ## 3. Reglas de Negocio Críticas
 El comportamiento del sistema está regido por las siguientes directrices lógicas de datos:
 
@@ -42,7 +40,6 @@ El comportamiento del sistema está regido por las siguientes directrices lógic
 * **Formatos Estrictos:** Se aplican expresiones regulares (*Regex*) para validar la legitimidad de las URLs de reproducción y restricciones numéricas que impiden registrar años de estreno anteriores a 1888 (origen del cine).
 
 ---
-
 ## 4. Instalación y Levantamiento Rápido
 
 Siga estos pasos para clonar, configurar e iniciar el proyecto localmente en su entorno de desarrollo:
@@ -52,27 +49,22 @@ Siga estos pasos para clonar, configurar e iniciar el proyecto localmente en su 
 git clone https://github.com/JorgeAHernandezC80/Catalog-Media-API_REST.git
 cd Catalog-Media-API_REST
 ```
-
 ### 2. Instalar dependencias esenciales
 ```bash
 npm install
 ```
-
 ### 3. Configurar variables de entorno
 Cree un archivo llamado `.env` en la raíz del proyecto con los siguientes parámetros:
 ```env
 PORT=5000
 MONGO_URI=mongodb://127.0.0.1:27017/catalog_media_db
 ```
-
 ### 4. Arrancar el servidor en modo desarrollo
 El proyecto utiliza `nodemon` para reiniciarse automáticamente ante cualquier cambio:
 ```bash
 npm run dev
 ```
-
 ---
-
 ## 5. Estructura del Catálogo (Endpoints Simétricos 1 al 5)
 
 La API cuenta con cinco módulos independientes que exponen de forma exacta la misma secuencia estructural de operaciones CRUD:
@@ -89,8 +81,6 @@ La API cuenta con cinco módulos independientes que exponen de forma exacta la m
 | **5**     | Eliminar un registro por ID   | `DELETE`    | `/:id`            |
 ```
 
----
-
 ## 6. Autores y Créditos
 * **Desarrollador:** Jorge A. Hernandez C.
 * **Docente Evaluador:** Federico Henao
@@ -98,34 +88,14 @@ La API cuenta con cinco módulos independientes que exponen de forma exacta la m
 * **Curso:** Proyecto Integrado II - Desarrollo de Aplicaciones Web
 * **Semestre:** Sexto Semestre - PREICA2602B020099
 
-* ## 7. Licencia y Derechos de Autor
+## 7. Licencia y Derechos de Autor
 
-Este proyecto está bajo la **Licencia MIT**. Esto significa que tienes permiso para usar, copiar, modificar y distribuir el código de forma libre, siempre y cuando se incluya la nota de derecho de autor y este aviso de licencia en todas las copias.
+Copyright (c) 2026 Jorge A. Hernández C. Todos los derechos reservados. Este software y su código fuente son propiedad de Jorge A. Hernández C. No se concede ningún permiso para usar, copiar, modificar, fusionar, publish, distribuir, sublicenciar y/o vender copias de este software, ni para permitir que terceros lo hagan, sin el consentimiento previo y por escrito del autor. Todos los derechos no otorgados expresamente quedan reservados. Ver LICENSE.
 
-```text
-MIT License
-
-Copyright (c) 2026 Jorge A. Hernandez C.
-
-Por la presente se concede permiso, libre de cargos, a cualquier persona que obtenga una copia
-de este software y de los archivos de documentación asociados (el "Software"), para utilizar
-el Software sin restricción, incluyendo sin limitación los derechos a usar, copiar, modificar,
-fusionar, publicar, distribuir, sublicenciar y/o vender copias del Software, y a permitir a
-las personas a las que se les proporcione el Software a hacer lo mismo, sujeto a las
-siguientes condiciones:
-
-El aviso de copyright anterior y este aviso de permiso se incluirán en todas las copias o
-partes sustanciales del Software.
-
-EL SOFTWARE SE PROPORCIONA "TAL CUAL", SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O IMPLÍCITA,
-INCLUYENDO PERO NO LIMITADO A GARANTÍAS DE COMERCIALIZACIÓN, IDONEIDAD PARA UN PROPÓSITO
-PARTICULAR Y NO INFRACCIÓN. EN NINGÚN CASO LOS AUTORES O TITULARES DEL COPYRIGHT SERÁN
-RESPONSABLES DE NINGUNA RECLAMACIÓN, DAÑOS U OTRA RESPONSABILIDAD, YA SEA EN UNA ACCIÓN
-DE CONTRATO, AGRAVIO O DE OTRO MODO, QUE SURJA DE, FUERA DE O EN CONEXIÓN CON EL SOFTWARE
-O EL USO U OTROS TRATOS EN EL SOFTWARE.
-```
+Copyright (c) 2026 Jorge A. Hernández C. All rights reserved. This software and its source code are the property of Jorge A. Hernández C. No permission is granted to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of this software, or to permit persons to whom it is furnished to do so, without the prior written consent of the author. All rights not expressly granted are reserved.
 
 ---
 
 ### Proyectos Académicos y Uso Institucional
 Este repositorio fue creado con fines estrictamente educativos y evaluativos para el curso **Proyecto Integrado II - Desarrollo de Aplicaciones Web** de la **Institución Universitaria Digital de Antioquia (IU Digital)**. Queda autorizado el acceso y revisión del material al docente evaluador **Federico Henao** y a los cuerpos directivos institucionales pertinentes.
+
