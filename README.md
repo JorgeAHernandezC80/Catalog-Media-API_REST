@@ -40,31 +40,31 @@ El comportamiento del sistema está regido por las siguientes directrices lógic
 
 ---
 ## 4. Instalación y Levantamiento Rápido
----
+
 Siga estos pasos para clonar, configurar e iniciar el proyecto localmente en su entorno de desarrollo:
 
-### 1. Clonar el repositorio
-```bash
-git clone https://github.com/JorgeAHernandezC80/Catalog-Media-API_REST.git
-cd Catalog-Media-API_REST
-```
-```
-### 2. Instalar dependencias esenciales
-```bash
-npm install
-```
-### 3. Configurar variables de entorno
-Cree un archivo llamado `.env` en la raíz del proyecto con los siguientes parámetros:
-```env
-PORT=5000
-MONGO_URI=mongodb://127.0.0.1:27017/catalog_media_db
-```
-
-### 4. Arrancar el servidor en modo desarrollo
-El proyecto utiliza `nodemon` para reiniciarse automáticamente ante cualquier cambio:
-```bash
-npm run dev
-```
+  ### 1. Clonar el repositorio
+  ```bash
+  git clone https://github.com/JorgeAHernandezC80/Catalog-Media-API_REST.git
+  cd Catalog-Media-API_REST
+  ```
+  ```
+  ### 2. Instalar dependencias esenciales
+  ```bash
+  npm install
+  ```
+  ### 3. Configurar variables de entorno
+  Cree un archivo llamado `.env` en la raíz del proyecto con los siguientes parámetros:
+  ```env
+  PORT=5000
+  MONGO_URI=mongodb://127.0.0.1:27017/catalog_media_db
+  ```
+  
+  ### 4. Arrancar el servidor en modo desarrollo
+  El proyecto utiliza `nodemon` para reiniciarse automáticamente ante cualquier cambio:
+  ```bash
+  npm run dev
+  ```
 ---
 ## 5. Estructura del Catálogo (Endpoints Simétricos 1 al 5)
 
