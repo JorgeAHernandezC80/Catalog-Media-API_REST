@@ -5,7 +5,6 @@ API REST modular diseñada para la administración y control centralizado de un 
 Desarrollado para el curso **Proyecto Integrado II - Desarrollo de Aplicaciones Web** en la **Institución Universitaria Digital de Antioquia (IU Digital)**.
 
 ---
-
 ## 📌 Índice
 1. [Descripción General & Propósito](#1-descripción-general--propósito)
 2. [Arquitectura del Proyecto (Patrón MVC)](#2-arquitectura-del-proyecto-patrón-mvc)
@@ -41,7 +40,7 @@ El comportamiento del sistema está regido por las siguientes directrices lógic
 
 ---
 ## 4. Instalación y Levantamiento Rápido
-
+---
 Siga estos pasos para clonar, configurar e iniciar el proyecto localmente en su entorno de desarrollo:
 
 ### 1. Clonar el repositorio
@@ -89,8 +88,8 @@ La API cuenta con cinco módulos independientes que exponen de forma exacta la m
 * **Institución:** Institución Universitaria Digital de Antioquia (IU Digital)
 * **Curso:** Proyecto Integrado II - Desarrollo de Aplicaciones Web
 * **Semestre:** Sexto Semestre - PREICA2602B020099
+---
 
-```
 ## 7. Licencia y Derechos de Autor
 
 Copyright (c) 2026 Jorge A. Hernández C. Todos los derechos reservados. Este software y su código fuente son propiedad de Jorge A. Hernández C. No se concede ningún permiso para usar, copiar, modificar, fusionar, publish, distribuir, sublicenciar y/o vender copias de este software, ni para permitir que terceros lo hagan, sin el consentimiento previo y por escrito del autor. Todos los derechos no otorgados expresamente quedan reservados. Ver LICENSE.
