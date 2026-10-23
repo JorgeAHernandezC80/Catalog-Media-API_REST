@@ -33,7 +33,7 @@ const MediaSchema = new Schema({
         required: [true, 'El año de estreno es obligatorio'],
         min: [1888, 'El año de estreno no puede ser anterior a la creación del cine (1888)']
     },
-    // RELACIONES CRÍTICAS (Integridad Referencial) ----
+    // RELACIONES CRÍTICAS (Integridad Referencial)
     genero: {
         type: Schema.Types.ObjectId,
         ref: 'Genero',
