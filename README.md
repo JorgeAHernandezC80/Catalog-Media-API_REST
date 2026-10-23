@@ -5,6 +5,7 @@ API REST modular diseñada para la administración y control centralizado de un 
 Desarrollado para el curso **Proyecto Integrado II - Desarrollo de Aplicaciones Web** en la **Institución Universitaria Digital de Antioquia (IU Digital)**.
 
 ---
+
 ## 📌 Índice
 1. [Descripción General & Propósito](#1-descripción-general--propósito)
 2. [Arquitectura del Proyecto (Patrón MVC)](#2-arquitectura-del-proyecto-patrón-mvc)
@@ -15,12 +16,14 @@ Desarrollado para el curso **Proyecto Integrado II - Desarrollo de Aplicaciones 
 7. [Licencia y Derechos de Autor](#7-Licencia-y-Derechos-de-Autor)
 
 ---
+
 ## 1. Descripción General & Propósito
 Este proyecto resuelve la gestión de contenidos para una plataforma de streaming multimedia. Permite crear, consultar, editar y eliminar películas o series asegurando que cada título esté obligatoriamente vinculado a entidades reales de la plataforma (Directores, Géneros, Productoras y Tipos).
 
 **Lo más importante en 90 segundos:** La API cuenta con un diseño de rutas totalmente simétrico y un controlador centralizado que verifica la existencia de llaves foráneas antes de alterar la base de datos, resolviendo las consultas mediante la función `populate` de Mongoose para entregar objetos enriquecidos.
 
 ---
+
 ## 2. Arquitectura del Proyecto (Patrón MVC)
 El proyecto implementa el patrón **Modelo-Vista-Controlador (MVC)** para separar responsabilidades de forma limpia:
 
@@ -31,6 +34,7 @@ El proyecto implementa el patrón **Modelo-Vista-Controlador (MVC)** para separa
 * **`Server.js`**: Punto de entrada de la aplicación y configuración de middlewares globales.
 
 ---
+
 ## 3. Reglas de Negocio Críticas
 El comportamiento del sistema está regido por las siguientes directrices lógicas de datos:
 
@@ -39,37 +43,44 @@ El comportamiento del sistema está regido por las siguientes directrices lógic
 * **Formatos Estrictos:** Se aplican expresiones regulares (*Regex*) para validar la legitimidad de las URLs de reproducción y restricciones numéricas que impiden registrar años de estreno anteriores a 1888 (origen del cine).
 
 ---
+
 ## 4. Instalación y Levantamiento Rápido
 
 Siga estos pasos para clonar, configurar e iniciar el proyecto localmente en su entorno de desarrollo:
 
-  ### 1. Clonar el repositorio
-  bash
-  git clone https://github.com/JorgeAHernandezC80/Catalog-Media-API_REST.git
-  cd Catalog-Media-API_REST
-  
-  ### 2. Instalar dependencias esenciales
-  bash
-  npm install
-  
-  ### 3. Configurar variables de entorno
-  Cree un archivo llamado `.env` en la raíz del proyecto con los siguientes parámetros:
-  env
-  PORT=5000
-  MONGO_URI=mongodb://127.0.0.1:27017/catalog_media_db
-  
-  ### 4. Arrancar el servidor en modo desarrollo
-  El proyecto utiliza `nodemon` para reiniciarse automáticamente ante cualquier cambio:
-  bash
-  npm run dev
-  
+### 1. Clonar el repositorio
+```bash
+git clone https://github.com/JorgeAHernandezC80/Catalog-Media-API_REST.git
+cd Catalog-Media-API_REST
+```
+
+### 2. Instalar dependencias esenciales
+```bash
+npm install
+```
+
+### 3. Configurar variables de entorno
+Cree un archivo llamado `.env` en la raíz del proyecto con los siguientes parámetros:
+```env
+PORT=5000
+MONGO_URI=mongodb://127.0.0.1:27017/catalog_media_db
+```
+
+### 4. Arrancar el servidor en modo desarrollo
+El proyecto utiliza `nodemon` para reiniciarse automáticamente ante cualquier cambio:
+```bash
+npm run dev
+```
+
 ---
+
 ## 5. Estructura del Catálogo (Endpoints Simétricos 1 al 5)
 
 La API cuenta con cinco módulos independientes que exponen de forma exacta la misma secuencia estructural de operaciones CRUD:
 * **Módulos Base:** `/api/generos`, `/api/directores`, `/api/productoras`, `/api/tipos`
 * **Módulo Relacional Central:** `/api/media`
 
+```
 ```
 | Secuencia | Acción Realizada              | Método HTTP | Endpoint Relativo |
 | :-------- | :---------------------------- | :---------- | :---------------- |
@@ -79,6 +90,9 @@ La API cuenta con cinco módulos independientes que exponen de forma exacta la m
 | **4**     | Actualizar un registro por ID | `PUT`       | `/:id`            |
 | **5**     | Eliminar un registro por ID   | `DELETE`    | `/:id`            |
 ```
+```
+
+---
 
 ## 6. Autores y Créditos
 * **Desarrollador:** Jorge A. Hernandez C.
@@ -86,8 +100,6 @@ La API cuenta con cinco módulos independientes que exponen de forma exacta la m
 * **Institución:** Institución Universitaria Digital de Antioquia (IU Digital)
 * **Curso:** Proyecto Integrado II - Desarrollo de Aplicaciones Web
 * **Semestre:** Sexto Semestre - PREICA2602B020099
----
-
 ## 7. Licencia y Derechos de Autor
 
 Copyright (c) 2026 Jorge A. Hernández C. Todos los derechos reservados. Este software y su código fuente son propiedad de Jorge A. Hernández C. No se concede ningún permiso para usar, copiar, modificar, fusionar, publish, distribuir, sublicenciar y/o vender copias de este software, ni para permitir que terceros lo hagan, sin el consentimiento previo y por escrito del autor. Todos los derechos no otorgados expresamente quedan reservados. Ver LICENSE.
