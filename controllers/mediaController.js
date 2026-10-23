@@ -87,9 +87,64 @@ const obtenerMediaPorId = async (req, res) => {
     }
 };
 
+// ... (Tus importaciones y métodos anteriores: createMedia, obtenerCatalogo, obtenerMediaPorId permanecen igual)
+
+// 4. ACTUALIZAR una producción por ID (Regla de negocio: valida llaves foráneas si se envían)
+const actualizarMedia = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { genero, director, productora, tipo } = req.body;
+
+        // Si se intenta actualizar una relación, verificamos primero que el ID de destino exista
+        if (genero && !(await Genero.findById(genero))) {
+            return res.status(404).json({ message: 'El Género especificado no existe.' });
+        }
+        if (director && !(await Director.findById(director))) {
+            return res.status(404).json({ message: 'El Director especificado no existe.' });
+        }
+        if (productora && !(await Productora.findById(productora))) {
+            return res.status(404).json({ message: 'La Productora especificada no existe.' });
+        }
+        if (tipo && !(await Tipo.findById(tipo))) {
+            return res.status(404).json({ message: 'El Tipo especificado no existe.' });
+        }
+
+        const mediaActualizada = await Media.findByIdAndUpdate(id, req.body, { 
+            new: true,          // Devuelve el documento ya modificado
+            runValidators: true // Fuerza a que se cumplan las validaciones del modelo (ej. formato de URL)
+        });
+
+        if (!mediaActualizada) {
+            return res.status(404).json({ message: 'No se encontró la producción para actualizar' });
+        }
+
+        res.status(200).json(mediaActualizada);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
+// 5. ELIMINAR una producción por ID
+const eliminarMedia = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const mediaEliminada = await Media.findByIdAndDelete(id);
+
+        if (!mediaEliminada) {
+            return res.status(404).json({ message: 'No se encontró la producción para eliminar' });
+        }
+
+        res.status(200).json({ message: 'Producción eliminada correctamente del catálogo' });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
 // Exportación de los métodos del controlador para utilizarlos en el archivo de rutas
 module.exports = {
     createMedia,
     obtenerCatalogo,
-    obtenerMediaPorId
+    obtenerMediaPorId,
+    actualizarMedia,
+    eliminarMedia
 };
