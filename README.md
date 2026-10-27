@@ -6,7 +6,7 @@ Desarrollado para el curso **Proyecto Integrado II - Desarrollo de Aplicaciones 
 
 ---
 
-## 📌 Índice
+## Índice
 1. [Descripción General & Propósito](#1-descripción-general--propósito)
 2. [Arquitectura del Proyecto (Patrón MVC)](#2-arquitectura-del-proyecto-patrón-mvc)
 3. [Reglas de Negocio Críticas](#3-reglas-de-negocio-críticas)
