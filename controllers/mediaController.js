@@ -1,43 +1,83 @@
+const { isValidObjectId } = require('mongoose');
 const Media = require('../models/Media');
 const Genero = require('../models/Genero');
 const Director = require('../models/Director');
 const Productora = require('../models/Productora');
 const Tipo = require('../models/Tipo');
 
-// 1. CREAR una nueva producción (Película o Serie) con validación de llaves foráneas
+// Definición de las relaciones de Media según el caso de estudio:
+// Género, Director y Productora deben estar ACTIVOS (IX, X, XI).
+// Tipo no tiene estado, solo debe existir (XII).
+const RELACIONES = [
+    { campo: 'genero', modelo: Genero, etiqueta: 'El Género', requiereActivo: true },
+    { campo: 'director', modelo: Director, etiqueta: 'El Director', requiereActivo: true },
+    { campo: 'productora', modelo: Productora, etiqueta: 'La Productora', requiereActivo: true },
+    { campo: 'tipo', modelo: Tipo, etiqueta: 'El Tipo', requiereActivo: false }
+];
+
+// Valida las referencias enviadas en el body.
+// - esCreacion = true: las 4 referencias son obligatorias.
+// - esCreacion = false (PUT): solo se validan las que vengan en el body.
+// Devuelve null si todo está bien, o { status, message } si hay un error.
+const validarReferencias = async (body, esCreacion) => {
+    for (const { campo, modelo, etiqueta, requiereActivo } of RELACIONES) {
+        const id = body[campo];
+
+        if (id === undefined || id === null || id === '') {
+            if (esCreacion) {
+                return { status: 400, message: `${etiqueta} es obligatorio (campo '${campo}').` };
+            }
+            continue;
+        }
+
+        if (!isValidObjectId(id)) {
+            return { status: 400, message: `${etiqueta} no tiene un ID válido.` };
+        }
+
+        const registro = await modelo.findById(id);
+        if (!registro) {
+            return { status: 404, message: `${etiqueta} especificado no existe.` };
+        }
+
+        if (requiereActivo && registro.estado !== 'Activo') {
+            return { status: 400, message: `${etiqueta} especificado está Inactivo y no se puede asignar.` };
+        }
+    }
+    return null;
+};
+
+// Traduce los errores de MongoDB/Mongoose a respuestas claras
+const manejarError = (res, error) => {
+    if (error.code === 11000) {
+        const campo = Object.keys(error.keyValue || {})[0] || 'campo';
+        return res.status(409).json({
+            message: `Ya existe una producción con ese ${campo}: '${error.keyValue?.[campo]}'. Debe ser único.`
+        });
+    }
+    if (error.name === 'ValidationError') {
+        const errores = Object.values(error.errors).map((e) => e.message);
+        return res.status(400).json({ message: 'Error de validación', errores });
+    }
+    if (error.name === 'CastError') {
+        return res.status(400).json({ message: `Valor inválido para '${error.path}'.` });
+    }
+    return res.status(500).json({ message: 'Error interno del servidor', error: error.message });
+};
+
+// 1. CREAR una nueva producción (Película o Serie)
 const createMedia = async (req, res) => {
     try {
-        const { genero, director, productora, tipo } = req.body;
-
-        // Regla de Negocio Crítica: Verificar la existencia real de cada ID de referencia
-        const generoExiste = await Genero.findById(genero);
-        if (!generoExiste) {
-            return res.status(404).json({ message: 'El Género especificado no existe.' });
+        const errorReferencia = await validarReferencias(req.body, true);
+        if (errorReferencia) {
+            return res.status(errorReferencia.status).json({ message: errorReferencia.message });
         }
 
-        const directorExiste = await Director.findById(director);
-        if (!directorExiste) {
-            return res.status(404).json({ message: 'El Director especificado no existe.' });
-        }
-
-        const productoraExiste = await Productora.findById(productora);
-        if (!productoraExiste) {
-            return res.status(404).json({ message: 'La Productora especificada no existe.' });
-        }
-
-        const tipoExiste = await Tipo.findById(tipo);
-        if (!tipoExiste) {
-            return res.status(404).json({ message: 'El Tipo especificado no existe.' });
-        }
-
-        // Si todas las referencias son válidas, se procede a guardar el documento
         const nuevaMedia = new Media(req.body);
         await nuevaMedia.save();
-        
+
         res.status(201).json(nuevaMedia);
     } catch (error) {
-        // Captura errores de validación de campos obligatorios o serial duplicado (Error E11000)
-        res.status(400).json({ error: error.message });
+        manejarError(res, error);
     }
 };
 
@@ -47,16 +87,12 @@ const obtenerCatalogo = async (req, res) => {
         const catalogo = await Media.find()
             .populate('genero', 'nombre estado')
             .populate('director', 'nombres estado')
-            .populate('productora', 'nombre eslogan')
+            .populate('productora', 'nombre eslogan estado')
             .populate('tipo', 'nombre');
 
         res.status(200).json(catalogo);
     } catch (error) {
-        res.status(500).json({ 
-            status: 'error', 
-            message: 'Error al obtener el catálogo de medios', 
-            error: error.message 
-        });
+        manejarError(res, error);
     }
 };
 
@@ -64,6 +100,10 @@ const obtenerCatalogo = async (req, res) => {
 const obtenerMediaPorId = async (req, res) => {
     try {
         const { id } = req.params;
+        if (!isValidObjectId(id)) {
+            return res.status(400).json({ message: 'El ID de la producción no es válido' });
+        }
+
         const contenido = await Media.findById(id)
             .populate('genero')
             .populate('director')
@@ -71,45 +111,31 @@ const obtenerMediaPorId = async (req, res) => {
             .populate('tipo');
 
         if (!contenido) {
-            return res.status(404).json({ 
-                status: 'fail', 
-                message: 'No se encontró ninguna producción con ese ID' 
-            });
+            return res.status(404).json({ message: 'No se encontró ninguna producción con ese ID' });
         }
 
         res.status(200).json(contenido);
     } catch (error) {
-        res.status(400).json({ 
-            status: 'error', 
-            message: 'ID no válido o error en la consulta', 
-            error: error.message 
-        });
+        manejarError(res, error);
     }
 };
 
-// 4. ACTUALIZAR una producción por ID (Regla de negocio: valida llaves foráneas si se envían)
+// 4. ACTUALIZAR una producción por ID (valida las referencias que se envíen)
 const actualizarMedia = async (req, res) => {
     try {
         const { id } = req.params;
-        const { genero, director, productora, tipo } = req.body;
-
-        // Si se intenta actualizar una relación, verificamos primero que el ID de destino exista
-        if (genero && !(await Genero.findById(genero))) {
-            return res.status(404).json({ message: 'El Género especificado no existe.' });
-        }
-        if (director && !(await Director.findById(director))) {
-            return res.status(404).json({ message: 'El Director especificado no existe.' });
-        }
-        if (productora && !(await Productora.findById(productora))) {
-            return res.status(404).json({ message: 'La Productora especificada no existe.' });
-        }
-        if (tipo && !(await Tipo.findById(tipo))) {
-            return res.status(404).json({ message: 'El Tipo especificado no existe.' });
+        if (!isValidObjectId(id)) {
+            return res.status(400).json({ message: 'El ID de la producción no es válido' });
         }
 
-        const mediaActualizada = await Media.findByIdAndUpdate(id, req.body, { 
-            new: true,          // Devuelve el documento ya modificado
-            runValidators: true // Forza a que se cumplan las validaciones del modelo (ej. formato de URL)
+        const errorReferencia = await validarReferencias(req.body, false);
+        if (errorReferencia) {
+            return res.status(errorReferencia.status).json({ message: errorReferencia.message });
+        }
+
+        const mediaActualizada = await Media.findByIdAndUpdate(id, req.body, {
+            returnDocument: 'after', // Devuelve el documento ya modificado
+            runValidators: true // Aplica las validaciones del modelo (URL, año, etc.)
         });
 
         if (!mediaActualizada) {
@@ -118,7 +144,7 @@ const actualizarMedia = async (req, res) => {
 
         res.status(200).json(mediaActualizada);
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        manejarError(res, error);
     }
 };
 
@@ -126,19 +152,21 @@ const actualizarMedia = async (req, res) => {
 const eliminarMedia = async (req, res) => {
     try {
         const { id } = req.params;
-        const mediaEliminada = await Media.findByIdAndDelete(id);
+        if (!isValidObjectId(id)) {
+            return res.status(400).json({ message: 'El ID de la producción no es válido' });
+        }
 
+        const mediaEliminada = await Media.findByIdAndDelete(id);
         if (!mediaEliminada) {
             return res.status(404).json({ message: 'No se encontró la producción para eliminar' });
         }
 
         res.status(200).json({ message: 'Producción eliminada correctamente del catálogo' });
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        manejarError(res, error);
     }
 };
 
-// Exportación de los métodos del controlador para utilizarlos en el archivo de rutas
 module.exports = {
     createMedia,
     obtenerCatalogo,
