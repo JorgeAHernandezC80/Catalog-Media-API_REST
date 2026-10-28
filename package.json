@@ -5,7 +5,8 @@
   "main": "Server.js",
   "scripts": {
     "start": "node Server.js",
-    "dev": "nodemon Server.js"
+    "dev": "nodemon Server.js",
+    "seed": "node seed.js"
   },
   "keywords": [
     "express",
