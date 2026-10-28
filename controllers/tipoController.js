@@ -1,4 +1,5 @@
 const Tipo = require('../models/Tipo');
+const Media = require('../models/Media');
 
 // 1. CREAR un nuevo tipo
 const crearTipo = async (req, res) => {
@@ -37,7 +38,7 @@ const obtenerTipoPorId = async (req, res) => {
 const actualizarTipo = async (req, res) => {
     try {
         const { id } = req.params;
-        const tipoActualizado = await Tipo.findByIdAndUpdate(id, req.body, { new: true, runValidators: true });
+        const tipoActualizado = await Tipo.findByIdAndUpdate(id, req.body, { returnDocument: 'after', runValidators: true });
         if (!tipoActualizado) return res.status(404).json({ message: 'No se encontró el tipo para actualizar' });
         res.status(200).json(tipoActualizado);
     } catch (error) {
@@ -49,6 +50,12 @@ const actualizarTipo = async (req, res) => {
 const eliminarTipo = async (req, res) => {
     try {
         const { id } = req.params;
+        // Integridad referencial: no se elimina si hay producciones que lo usan
+        const enUso = await Media.exists({ tipo: id });
+        if (enUso) {
+            return res.status(409).json({ message: 'No se puede eliminar: hay producciones asociadas a este tipo. Reasigne primero esas producciones a otro tipo.' });
+        }
+
         const tipoEliminado = await Tipo.findByIdAndDelete(id);
         if (!tipoEliminado) return res.status(404).json({ message: 'No se encontró el tipo para eliminar' });
         res.status(200).json({ message: 'Tipo eliminado correctamente' });

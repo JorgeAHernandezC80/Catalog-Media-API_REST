@@ -1,4 +1,5 @@
 const Genero = require('../models/Genero');
+const Media = require('../models/Media');
 
 // 1. CREAR un nuevo género
 const crearGenero = async (req, res) => {
@@ -40,7 +41,7 @@ const actualizarGenero = async (req, res) => {
     try {
         const { id } = req.params;
         const generoActualizado = await Genero.findByIdAndUpdate(id, req.body, { 
-            new: true, 
+            returnDocument: 'after',
             runValidators: true 
         });
         if (!generoActualizado) {
@@ -56,6 +57,12 @@ const actualizarGenero = async (req, res) => {
 const eliminarGenero = async (req, res) => {
     try {
         const { id } = req.params;
+        // Integridad referencial: no se elimina si hay producciones que lo usan
+        const enUso = await Media.exists({ genero: id });
+        if (enUso) {
+            return res.status(409).json({ message: 'No se puede eliminar: hay producciones asociadas a este género. Cámbielo a Inactivo o reasigne las producciones.' });
+        }
+
         const generoEliminado = await Genero.findByIdAndDelete(id);
         if (!generoEliminado) {
             return res.status(404).json({ message: 'No se encontró el género para eliminar' });

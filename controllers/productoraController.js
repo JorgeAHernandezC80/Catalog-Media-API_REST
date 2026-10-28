@@ -1,4 +1,5 @@
 const Productora = require('../models/Productora');
+const Media = require('../models/Media');
 
 // 1. CREAR una nueva productora
 const crearProductora = async (req, res) => {
@@ -37,7 +38,7 @@ const obtenerProductoraPorId = async (req, res) => {
 const actualizarProductora = async (req, res) => {
     try {
         const { id } = req.params;
-        const productoraActualizada = await Productora.findByIdAndUpdate(id, req.body, { new: true, runValidators: true });
+        const productoraActualizada = await Productora.findByIdAndUpdate(id, req.body, { returnDocument: 'after', runValidators: true });
         if (!productoraActualizada) return res.status(404).json({ message: 'No se encontró la productora para actualizar' });
         res.status(200).json(productoraActualizada);
     } catch (error) {
@@ -49,6 +50,12 @@ const actualizarProductora = async (req, res) => {
 const eliminarProductora = async (req, res) => {
     try {
         const { id } = req.params;
+        // Integridad referencial: no se elimina si hay producciones que lo usan
+        const enUso = await Media.exists({ productora: id });
+        if (enUso) {
+            return res.status(409).json({ message: 'No se puede eliminar: hay producciones asociadas a esta productora. Cámbielo a Inactivo o reasigne las producciones.' });
+        }
+
         const productoraEliminada = await Productora.findByIdAndDelete(id);
         if (!productoraEliminada) return res.status(404).json({ message: 'No se encontró la productora para eliminar' });
         res.status(200).json({ message: 'Productora eliminada correctamente' });
