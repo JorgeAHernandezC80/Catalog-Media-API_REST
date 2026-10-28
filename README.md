@@ -38,9 +38,10 @@ El proyecto implementa el patrón **Modelo-Vista-Controlador (MVC)** para separa
 ## 3. Reglas de Negocio Críticas
 El comportamiento del sistema está regido por las siguientes directrices lógicas de datos:
 
-* **Identificación Única:** El campo `serial` funciona como el código de inventario obligatorio de cada obra multimedia. MongoDB restringe los duplicados mediante índices únicos.
-* **Integridad de Relaciones:** El controlador de `Media` verifica la existencia física de cada ID de referencia en las colecciones secundarias antes de guardar o actualizar una producción.
-* **Formatos Estrictos:** Se aplican expresiones regulares (*Regex*) para validar la legitimidad de las URLs de reproducción y restricciones numéricas que impiden registrar años de estreno anteriores a 1888 (origen del cine).
+* **Identificación Única:** El `serial` y la `url` de cada producción son únicos. MongoDB restringe los duplicados mediante índices únicos y la API responde `409 Conflict`.
+* **Solo Referencias Activas:** Al crear o editar una producción, el Género, Director y Productora deben existir y estar en estado `Activo`. El Tipo solo debe existir (no maneja estado).
+* **Sin Registros Huérfanos:** No se puede eliminar un Género, Director, Productora o Tipo que tenga producciones asociadas (`409 Conflict`).
+* **Formatos Estrictos:** La URL de reproducción y la portada se validan como URLs `http`/`https`, y el año de estreno no puede ser anterior a 1888 (origen del cine).
 
 ---
 
@@ -60,13 +61,19 @@ npm install
 ```
 
 ### c. Configurar variables de entorno
-Cree un archivo llamado `.env` en la raíz del proyecto con los siguientes parámetros:
+Copie el archivo `.env.example` como `.env` en la raíz del proyecto (o créelo) con los siguientes parámetros:
 ```env
 PORT=5000
 MONGO_URI=mongodb://127.0.0.1:27017/catalog_media_db
 ```
 
-### d. Arrancar el servidor en modo desarrollo
+### d. Cargar los datos iniciales del caso de estudio
+Registra los géneros (Acción, Aventura, Ciencia ficción, Drama, Terror) y los tipos (Serie, Película). Se puede ejecutar varias veces sin duplicar datos:
+```bash
+npm run seed
+```
+
+### e. Arrancar el servidor en modo desarrollo
 El proyecto utiliza `nodemon` para reiniciarse automáticamente ante cualquier cambio:
 ```bash
 npm run dev
