@@ -1,10 +1,22 @@
 const { Schema, model } = require('mongoose');
 
+// Valida que la URL tenga un formato real (http/https), aceptando rutas,
+// parámetros (?v=...) y mayúsculas, que el regex anterior rechazaba.
+const esUrlValida = (valor) => {
+    if (!valor) return true; // 'required' se encarga de los valores vacíos
+    try {
+        const url = new URL(valor);
+        return url.protocol === 'http:' || url.protocol === 'https:';
+    } catch {
+        return false;
+    }
+};
+
 const MediaSchema = new Schema({
     serial: {
         type: String,
         required: [true, 'El serial es un campo crítico y obligatorio'],
-        unique: true, // Regla crítica: No se pueden duplicar seriales en el catálogo
+        unique: true, // Caso de estudio (I): el serial es único
         trim: true
     },
     titulo: {
@@ -14,19 +26,26 @@ const MediaSchema = new Schema({
     },
     sinopsis: {
         type: String,
-        required: [true, 'La sinopsis es obligatoria']
+        required: [true, 'La sinopsis es obligatoria'],
+        trim: true
     },
     url: {
         type: String,
         required: [true, 'La URL de la producción es obligatoria'],
-        match: [
-            /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/, 
-            'Por favor, ingresa una URL con un formato válido'
-        ]
+        unique: true, // Caso de estudio (IV): la URL de la película es única
+        trim: true,
+        validate: {
+            validator: esUrlValida,
+            message: 'Por favor, ingresa una URL con un formato válido (http o https)'
+        }
     },
     portada: {
         type: String,
-        trim: true
+        trim: true,
+        validate: {
+            validator: esUrlValida,
+            message: 'La portada debe ser una URL válida (http o https)'
+        }
     },
     anoEstreno: {
         type: Number,
@@ -55,7 +74,7 @@ const MediaSchema = new Schema({
         required: [true, 'Debe especificar el Tipo (Película o Serie)']
     }
 }, {
-    timestamps: true // Crea automáticamente campos 'createdAt' y 'updatedAt'
+    timestamps: true // Caso de estudio (VI, VII): fecha de creación y actualización
 });
 
 module.exports = model('Media', MediaSchema);
