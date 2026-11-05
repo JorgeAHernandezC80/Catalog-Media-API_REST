@@ -10,12 +10,13 @@ const Genero = require('./models/Genero');
 const Tipo = require('./models/Tipo');
 
 const GENEROS = [
-    { nombre: 'Acción', descripcion: 'Producciones con ritmo intenso, peleas y persecuciones' },
-    { nombre: 'Aventura', descripcion: 'Viajes, exploración y búsqueda de objetivos' },
-    { nombre: 'Ciencia ficción', descripcion: 'Historias basadas en avances científicos o futuros posibles' },
-    { nombre: 'Drama', descripcion: 'Historias centradas en conflictos humanos y emocionales' },
-    { nombre: 'Terror', descripcion: 'Producciones que buscan generar miedo o suspenso' }
+    { nombre: 'Acción', estado: 'Activo', descripcion: 'Producciones con ritmo intenso, peleas y persecuciones' },
+    { nombre: 'Aventura', estado: 'Activo', descripcion: 'Viajes, exploración y búsqueda de objetivos' },
+    { nombre: 'Ciencia ficción', estado: 'Activo', descripcion: 'Historias basadas en avances científicos o futuros posibles' },
+    { nombre: 'Drama', estado: 'Activo', descripcion: 'Historias centradas en conflictos humanos y emocionales' },
+    { nombre: 'Terror', estado: 'Activo', descripcion: 'Producciones que buscan generar miedo o suspenso' }
 ];
+
 
 const TIPOS = [
     { nombre: 'Serie', descripcion: 'Producción dividida en temporadas y episodios' },
