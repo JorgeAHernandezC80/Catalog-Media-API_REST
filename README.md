@@ -133,6 +133,48 @@ json
 }
 ```
 ---
+## 6. Estructura de Archivos
+```
+Catalog-Media-API_REST/
+├── config/
+│   └── db-connection.js
+├── controllers/
+│   ├── genero.controller.js
+│   ├── director.controller.js
+│   ├── productora.controller.js
+│   ├── tipo.controller.js
+│   └── media.controller.js
+├── models/
+│   ├── genero.model.js
+│   ├── director.model.js
+│   ├── productora.model.js
+│   ├── tipo.model.js
+│   └── media.model.js
+├── routes/
+│   ├── genero.routes.js
+│   ├── director.routes.js
+│   ├── productora.routes.js
+│   ├── tipo.routes.js
+│   └── media.routes.js
+├── .env.template
+├── .gitignore
+├── package.json
+├── package-lock.json
+├── README.md
+├── seed.script.js
+└── server.js
+```
+---
+## 7. Buenas Prácticas Aplicadas
+* **Nombres de archivos:** kebab-case + sufijo (genero.model.js, genero.controller.js, genero.routes.js).
+* **Nombres de carpetas:** minúsculas (config/, controllers/, models/, routes/).
+* **Endpoints:** plural, kebab-case, con versión (/api/v1/generos).
+* **Variables y funciones:** camelCase (getGeneros, createMedia).
+* **Clases y modelos:** PascalCase (Genero, Media).
+* **Variables de entorno:** UPPER_SNAKE_CASE (PORT, MONGODB_URI).
+* **Módulos:** ES Modules (import/export) en lugar de CommonJS (require).
+* **Configuración:** .env excluido de Git, .env.template incluido.
+* **Seguridad:** Usuario de base de datos con privilegios mínimos e IP autorizada en Atlas.
 
 ## 6. Autores y Créditos
 * **Desarrollador:** Jorge A. Hernandez C.
