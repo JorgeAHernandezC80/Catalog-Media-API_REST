@@ -70,7 +70,7 @@ npm install
 ```
 
 ### c. Configurar variables de entorno
-Copie el archivo `.env.example` como `.env` en la raíz del proyecto (o créelo) con los siguientes parámetros:
+Copia el archivo `.env.template` y renómbralo a `.env` en la raíz del proyecto (o créelo) con los siguientes parámetros:
 ```env
 PORT=5000
 MONGO_URI=mongodb://127.0.0.1:27017/catalog_media_db
