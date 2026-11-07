@@ -1,4 +1,5 @@
-const { Schema, model } = require('mongoose');
+// Importación de las dependencias necesarias desde mongoose
+import { Schema, model } from 'mongoose';
 
 // Valida que la URL tenga un formato real (http/https), aceptando rutas,
 // parámetros (?v=...) y mayúsculas, que el regex anterior rechazaba.
@@ -12,6 +13,7 @@ const esUrlValida = (valor) => {
     }
 };
 
+// Definición del esquema para el modelo 'Media'
 const MediaSchema = new Schema({
     serial: {
         type: String,
@@ -77,4 +79,5 @@ const MediaSchema = new Schema({
     timestamps: true // Caso de estudio (VI, VII): fecha de creación y actualización
 });
 
-module.exports = model('Media', MediaSchema);
+// Exportación por defecto con el nombre del modelo 'Media' y el esquema MediaSchema
+export default model('Media', MediaSchema);

@@ -1,8 +1,11 @@
-const Genero = require('../models/Genero');
-const Media = require('../models/Media');
+// se implementa el CRUD de géneros, con integridad referencial para no eliminar géneros que estén en uso por producciones
+
+// 1. Importamos los modelos con los que vamos a trabajar, en este caso el modelo de Género y el modelo de Media (producciones)
+import Genero from '../models/genero.model.js';
+import Media from '../models/media.model.js';
 
 // 1. CREAR un nuevo género
-const crearGenero = async (req, res) => {
+export const crearGenero = async (req, res) => {
     try {
         const nuevoGenero = new Genero(req.body);
         await nuevoGenero.save();
@@ -13,7 +16,7 @@ const crearGenero = async (req, res) => {
 };
 
 // 2. OBTENER todos los géneros
-const obtenerGeneros = async (req, res) => {
+export const obtenerGeneros = async (req, res) => {
     try {
         const generos = await Genero.find();
         res.status(200).json(generos);
@@ -23,7 +26,7 @@ const obtenerGeneros = async (req, res) => {
 };
 
 // 3. OBTENER un género por ID
-const obtenerGeneroPorId = async (req, res) => {
+export const obtenerGeneroPorId = async (req, res) => {
     try {
         const { id } = req.params;
         const genero = await Genero.findById(id);
@@ -37,7 +40,7 @@ const obtenerGeneroPorId = async (req, res) => {
 };
 
 // 4. ACTUALIZAR un género por ID
-const actualizarGenero = async (req, res) => {
+export const actualizarGenero = async (req, res) => {
     try {
         const { id } = req.params;
         const generoActualizado = await Genero.findByIdAndUpdate(id, req.body, { 
@@ -54,7 +57,7 @@ const actualizarGenero = async (req, res) => {
 };
 
 // 5. ELIMINAR un género por ID
-const eliminarGenero = async (req, res) => {
+export const eliminarGenero = async (req, res) => {
     try {
         const { id } = req.params;
         // Integridad referencial: no se elimina si hay producciones que lo usan
@@ -71,13 +74,4 @@ const eliminarGenero = async (req, res) => {
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
-};
-
-// Exportación de los métodos del controlador para utilizarlos en el archivo de rutas
-module.exports = {
-    crearGenero,
-    obtenerGeneros,
-    obtenerGeneroPorId,
-    actualizarGenero,
-    eliminarGenero
 };

@@ -1,9 +1,15 @@
-const { isValidObjectId } = require('mongoose');
-const Media = require('../models/Media');
-const Genero = require('../models/Genero');
-const Director = require('../models/Director');
-const Productora = require('../models/Productora');
-const Tipo = require('../models/Tipo');
+// Se implementa el controlador para manejar las operaciones CRUD de la colección "Media" (Películas y Series) 
+// en la base de datos MongoDB, utilizando Mongoose como ODM. Este controlador incluye funciones para crear, leer, 
+// actualizar y eliminar registros de medios, así como para validar referencias a otras colecciones relacionadas 
+// (Género, Director, Productora y Tipo). Además, se manejan errores comunes de Mongoose y se proporcionan respuestas claras al cliente.
+
+// 1. Importamos las dependencias y modelos con su respectiva validación de ID
+import { isValidObjectId } from 'mongoose';
+import Media from '../models/media.model.js';
+import Genero from '../models/genero.model.js';
+import Director from '../models/director.model.js';
+import Productora from '../models/productora.model.js';
+import Tipo from '../models/tipo.model.js';
 
 // Definición de las relaciones de Media según el caso de estudio:
 // Género, Director y Productora deben estar ACTIVOS (IX, X, XI).
@@ -65,7 +71,7 @@ const manejarError = (res, error) => {
 };
 
 // 1. CREAR una nueva producción (Película o Serie)
-const createMedia = async (req, res) => {
+export const createMedia = async (req, res) => {
     try {
         const errorReferencia = await validarReferencias(req.body, true);
         if (errorReferencia) {
@@ -82,7 +88,7 @@ const createMedia = async (req, res) => {
 };
 
 // 2. OBTENER todo el catálogo con población de datos relacionales
-const obtenerCatalogo = async (req, res) => {
+export const obtenerCatalogo = async (req, res) => {
     try {
         const catalogo = await Media.find()
             .populate('genero', 'nombre estado')
@@ -97,7 +103,7 @@ const obtenerCatalogo = async (req, res) => {
 };
 
 // 3. OBTENER el detalle completo de una producción por su ID
-const obtenerMediaPorId = async (req, res) => {
+export const obtenerMediaPorId = async (req, res) => {
     try {
         const { id } = req.params;
         if (!isValidObjectId(id)) {
@@ -121,7 +127,7 @@ const obtenerMediaPorId = async (req, res) => {
 };
 
 // 4. ACTUALIZAR una producción por ID (valida las referencias que se envíen)
-const actualizarMedia = async (req, res) => {
+export const actualizarMedia = async (req, res) => {
     try {
         const { id } = req.params;
         if (!isValidObjectId(id)) {
@@ -149,7 +155,7 @@ const actualizarMedia = async (req, res) => {
 };
 
 // 5. ELIMINAR una producción por ID
-const eliminarMedia = async (req, res) => {
+export const eliminarMedia = async (req, res) => {
     try {
         const { id } = req.params;
         if (!isValidObjectId(id)) {
@@ -165,12 +171,4 @@ const eliminarMedia = async (req, res) => {
     } catch (error) {
         manejarError(res, error);
     }
-};
-
-module.exports = {
-    createMedia,
-    obtenerCatalogo,
-    obtenerMediaPorId,
-    actualizarMedia,
-    eliminarMedia
 };

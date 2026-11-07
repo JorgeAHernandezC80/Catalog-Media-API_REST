@@ -1,12 +1,15 @@
-const { Router } = require('express');
+// 1. Usar import/export (ES Modules) en lugar de require/module.exports
+import { Router } from 'express';
 const router = Router();
-const { 
+
+// 2. Importamos el controlador con las funciones que manejarán las rutas de director (director.controller.js)
+import { 
     crearDirector, 
     obtenerDirectores, 
     obtenerDirectorPorId, 
     actualizarDirector, 
     eliminarDirector 
-} = require('../controllers/directorController');
+} from '../controllers/director.controller.js';
 
 // 1. CREAR un nuevo director
 router.post('/', crearDirector);
@@ -23,4 +26,5 @@ router.put('/:id', actualizarDirector);
 // 5. ELIMINAR un director por ID
 router.delete('/:id', eliminarDirector);
 
-module.exports = router;
+// 3. Exportar con export default
+export default router;

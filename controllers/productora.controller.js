@@ -1,8 +1,11 @@
-const Productora = require('../models/Productora');
-const Media = require('../models/Media');
+// Se importan los modelos de Productora y Media para manejar las operaciones CRUD y verificar la integridad referencial al eliminar una productora.
+
+// 1. Importamos los modelos con su respectiva ruta
+import Productora from '../models/productora.model.js';
+import Media from '../models/media.model.js';
 
 // 1. CREAR una nueva productora
-const crearProductora = async (req, res) => {
+export const crearProductora = async (req, res) => {
     try {
         const nuevaProductora = new Productora(req.body);
         await nuevaProductora.save();
@@ -13,7 +16,7 @@ const crearProductora = async (req, res) => {
 };
 
 // 2. OBTENER todas las productoras
-const obtenerProductoras = async (req, res) => {
+export const obtenerProductoras = async (req, res) => {
     try {
         const productoras = await Productora.find();
         res.status(200).json(productoras);
@@ -23,7 +26,7 @@ const obtenerProductoras = async (req, res) => {
 };
 
 // 3. OBTENER una productora por ID
-const obtenerProductoraPorId = async (req, res) => {
+export const obtenerProductoraPorId = async (req, res) => {
     try {
         const { id } = req.params;
         const productora = await Productora.findById(id);
@@ -35,10 +38,14 @@ const obtenerProductoraPorId = async (req, res) => {
 };
 
 // 4. ACTUALIZAR una productora por ID
-const actualizarProductora = async (req, res) => {
+export const actualizarProductora = async (req, res) => {
     try {
         const { id } = req.params;
-        const productoraActualizada = await Productora.findByIdAndUpdate(id, req.body, { returnDocument: 'after', runValidators: true });
+        const productoraActualizada = await Productora.findByIdAndUpdate(
+            id, 
+            req.body, 
+            { returnDocument: 'after', runValidators: true }
+        );
         if (!productoraActualizada) return res.status(404).json({ message: 'No se encontró la productora para actualizar' });
         res.status(200).json(productoraActualizada);
     } catch (error) {
@@ -47,7 +54,7 @@ const actualizarProductora = async (req, res) => {
 };
 
 // 5. ELIMINAR una productora por ID
-const eliminarProductora = async (req, res) => {
+export const eliminarProductora = async (req, res) => {
     try {
         const { id } = req.params;
         // Integridad referencial: no se elimina si hay producciones que lo usan
@@ -62,13 +69,4 @@ const eliminarProductora = async (req, res) => {
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
-};
-
-// Exportación de los métodos del controlador para utilizarlos en el archivo de rutas
-module.exports = {
-    crearProductora,
-    obtenerProductoras,
-    obtenerProductoraPorId,
-    actualizarProductora,
-    eliminarProductora
 };

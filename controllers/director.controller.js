@@ -1,8 +1,11 @@
-const Director = require('../models/Director');
-const Media = require('../models/Media');
+// Se importan los modelos de Director y Media para manejar las operaciones CRUD y verificar la integridad referencial al eliminar un director.
+
+// 1. Importamos los modelos con su respectiva ruta
+import Director from '../models/director.model.js';
+import Media from '../models/media.model.js';
 
 // 1. CREAR un nuevo director
-const crearDirector = async (req, res) => {
+export const crearDirector = async (req, res) => {
     try {
         const nuevoDirector = new Director(req.body);
         await nuevoDirector.save();
@@ -13,7 +16,7 @@ const crearDirector = async (req, res) => {
 };
 
 // 2. OBTENER todos los directores
-const obtenerDirectores = async (req, res) => {
+export const obtenerDirectores = async (req, res) => {
     try {
         const directores = await Director.find();
         res.status(200).json(directores);
@@ -23,7 +26,7 @@ const obtenerDirectores = async (req, res) => {
 };
 
 // 3. OBTENER un director por ID
-const obtenerDirectorPorId = async (req, res) => {
+export const obtenerDirectorPorId = async (req, res) => {
     try {
         const { id } = req.params;
         const director = await Director.findById(id);
@@ -35,10 +38,14 @@ const obtenerDirectorPorId = async (req, res) => {
 };
 
 // 4. ACTUALIZAR un director por ID
-const actualizarDirector = async (req, res) => {
+export const actualizarDirector = async (req, res) => {
     try {
         const { id } = req.params;
-        const directorActualizado = await Director.findByIdAndUpdate(id, req.body, { returnDocument: 'after', runValidators: true });
+        const directorActualizado = await Director.findByIdAndUpdate(
+            id, 
+            req.body, 
+            { returnDocument: 'after', runValidators: true }
+        );
         if (!directorActualizado) return res.status(404).json({ message: 'No se encontró el director para actualizar' });
         res.status(200).json(directorActualizado);
     } catch (error) {
@@ -47,7 +54,7 @@ const actualizarDirector = async (req, res) => {
 };
 
 // 5. ELIMINAR un director por ID
-const eliminarDirector = async (req, res) => {
+export const eliminarDirector = async (req, res) => {
     try {
         const { id } = req.params;
         // Integridad referencial: no se elimina si hay producciones que lo usan
@@ -62,13 +69,4 @@ const eliminarDirector = async (req, res) => {
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
-};
-
-// Exportación de los métodos del controlador para utilizarlos en el archivo de rutas
-module.exports = {
-    crearDirector,
-    obtenerDirectores,
-    obtenerDirectorPorId,
-    actualizarDirector,
-    eliminarDirector
 };

@@ -1,8 +1,11 @@
-const Tipo = require('../models/Tipo');
-const Media = require('../models/Media');
+// Se importan los modelos necesarios para manejar los tipos de producciones audiovisuales y las producciones asociadas
+
+// Controlador para manejar las operaciones CRUD de los tipos de producciones audiovisuales
+import Tipo from '../models/tipo.model.js';
+import Media from '../models/media.model.js';
 
 // 1. CREAR un nuevo tipo
-const crearTipo = async (req, res) => {
+export const crearTipo = async (req, res) => {
     try {
         const nuevoTipo = new Tipo(req.body);
         await nuevoTipo.save();
@@ -13,7 +16,7 @@ const crearTipo = async (req, res) => {
 };
 
 // 2. OBTENER todos los tipos
-const obtenerTipos = async (req, res) => {
+export const obtenerTipos = async (req, res) => {
     try {
         const tipos = await Tipo.find();
         res.status(200).json(tipos);
@@ -23,7 +26,7 @@ const obtenerTipos = async (req, res) => {
 };
 
 // 3. OBTENER un tipo por ID
-const obtenerTipoPorId = async (req, res) => {
+export const obtenerTipoPorId = async (req, res) => {
     try {
         const { id } = req.params;
         const tipo = await Tipo.findById(id);
@@ -35,10 +38,14 @@ const obtenerTipoPorId = async (req, res) => {
 };
 
 // 4. ACTUALIZAR un tipo por ID
-const actualizarTipo = async (req, res) => {
+export const actualizarTipo = async (req, res) => {
     try {
         const { id } = req.params;
-        const tipoActualizado = await Tipo.findByIdAndUpdate(id, req.body, { returnDocument: 'after', runValidators: true });
+        const tipoActualizado = await Tipo.findByIdAndUpdate(
+            id, 
+            req.body, 
+            { returnDocument: 'after', runValidators: true }
+        );
         if (!tipoActualizado) return res.status(404).json({ message: 'No se encontró el tipo para actualizar' });
         res.status(200).json(tipoActualizado);
     } catch (error) {
@@ -47,7 +54,7 @@ const actualizarTipo = async (req, res) => {
 };
 
 // 5. ELIMINAR un tipo por ID
-const eliminarTipo = async (req, res) => {
+export const eliminarTipo = async (req, res) => {
     try {
         const { id } = req.params;
         // Integridad referencial: no se elimina si hay producciones que lo usan
@@ -62,13 +69,4 @@ const eliminarTipo = async (req, res) => {
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
-};
-
-// Exportación de los métodos del controlador para utilizarlos en el archivo de rutas
-module.exports = {
-    crearTipo,
-    obtenerTipos,
-    obtenerTipoPorId,
-    actualizarTipo,
-    eliminarTipo
 };

@@ -1,12 +1,14 @@
-const { Router } = require('express');
+import { Router } from 'express';
 const router = Router();
-const { 
+
+// Importamos el controlador con las funciones que manejarán las rutas de tipo (tipo.controller.js)
+import { 
     crearTipo, 
     obtenerTipos, 
     obtenerTipoPorId, 
     actualizarTipo, 
     eliminarTipo 
-} = require('../controllers/tipoController');
+} from '../controllers/tipo.controller.js';
 
 // 1. CREAR un nuevo tipo
 router.post('/', crearTipo);
@@ -23,4 +25,4 @@ router.put('/:id', actualizarTipo);
 // 5. ELIMINAR un tipo por ID
 router.delete('/:id', eliminarTipo);
 
-module.exports = router;
+export default router;

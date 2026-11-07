@@ -1,12 +1,14 @@
-const { Router } = require('express');
+import { Router } from 'express';
 const router = Router();
-const { 
+
+// Importamos el controlador con las funciones que manejarán las rutas de productoras (productora.controller.js)
+import { 
     crearProductora, 
     obtenerProductoras, 
     obtenerProductoraPorId, 
     actualizarProductora, 
     eliminarProductora 
-} = require('../controllers/productoraController');
+} from '../controllers/productora.controller.js';
 
 // 1. CREAR una nueva productora
 router.post('/', crearProductora);
@@ -23,4 +25,4 @@ router.put('/:id', actualizarProductora);
 // 5. ELIMINAR una productora por ID
 router.delete('/:id', eliminarProductora);
 
-module.exports = router;
+export default router;

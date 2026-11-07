@@ -1,12 +1,14 @@
-const { Router } = require('express');
+import { Router } from 'express';
 const router = Router();
-const { 
+
+// Importamos el controlador con las funciones que manejarán las rutas de género (genero.controller.js)
+import { 
     crearGenero, 
     obtenerGeneros, 
     obtenerGeneroPorId, 
     actualizarGenero, 
     eliminarGenero 
-} = require('../controllers/generoController');
+} from '../controllers/genero.controller.js';
 
 // 1. CREAR un nuevo género
 router.post('/', crearGenero);
@@ -23,4 +25,4 @@ router.put('/:id', actualizarGenero);
 // 5. ELIMINAR un género por ID
 router.delete('/:id', eliminarGenero);
 
-module.exports = router;
+export default router;

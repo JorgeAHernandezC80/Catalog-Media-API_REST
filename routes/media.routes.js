@@ -1,12 +1,14 @@
-const { Router } = require('express');
+import { Router } from 'express';
 const router = Router();
-const { 
+
+// Importamos el controlador con las funciones que manejarán las rutas de media (media.controller.js)
+import { 
     createMedia, 
     obtenerCatalogo, 
     obtenerMediaPorId,
     actualizarMedia,
     eliminarMedia 
-} = require('../controllers/mediaController');
+} from '../controllers/media.controller.js';
 
 // 1. CREAR una nueva producción (Película o Serie)
 router.post('/', createMedia);
@@ -23,4 +25,4 @@ router.put('/:id', actualizarMedia);
 // 5. ELIMINAR una producción por ID del catálogo
 router.delete('/:id', eliminarMedia);
 
-module.exports = router;
+export default router;
