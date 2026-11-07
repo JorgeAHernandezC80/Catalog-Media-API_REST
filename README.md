@@ -1,23 +1,27 @@
-# Catalog-Media-API_REST
+# 🎬 Catalog-Media-API_REST
 
-API REST modular diseñada para la administración y control centralizado de un catálogo de producciones audiovisuales (Películas y Series). El sistema implementa validaciones robustas para garantizar que todos los registros mantengan una relación consistente en la base de datos sin generar registros huérfanos.
+API RESTful modular diseñada para la administración y control centralizado de un catálogo de producciones audiovisuales (Películas y Series). El sistema implementa validaciones robustas para garantizar que todos los registros mantengan una relación consistente en la base de datos sin generar registros huérfanos.
 
 Desarrollado para el curso **Proyecto Integrado II - Desarrollo de Aplicaciones Web** en la **Institución Universitaria Digital de Antioquia (IU Digital)**.
 
 ---
 
-## Índice
+## 📋 Índice
+
 1. [Descripción General & Propósito](#1-descripción-general--propósito)
 2. [Arquitectura del Proyecto (Patrón MVC)](#2-arquitectura-del-proyecto-patrón-mvc)
 3. [Reglas de Negocio Críticas](#3-reglas-de-negocio-críticas)
 4. [Instalación y Levantamiento Rápido](#4-instalación-y-levantamiento-rápido)
 5. [Estructura del Catálogo (Endpoints Simétricos 1 al 5)](#5-estructura-del-catálogo-endpoints-simétricos-1-al-5)
-6. [Autores y Créditos](#6-autores-y-créditos)
-7. [Licencia y Derechos de Autor](#7-Licencia-y-Derechos-de-Autor)
+6. [Estructura de Archivos](#6-estructura-de-archivos)
+7. [Buenas Prácticas Aplicadas](#7-buenas-prácticas-aplicadas)
+8. [Autores y Créditos](#8-autores-y-créditos)
+9. [Licencia y Derechos de Autor](#9-licencia-y-derechos-de-autor)
 
 ---
 
 ## 1. Descripción General & Propósito
+
 Este proyecto resuelve la gestión de contenidos para una plataforma de streaming multimedia. Permite crear, consultar, editar y eliminar películas o series asegurando que cada título esté obligatoriamente vinculado a entidades reales de la plataforma (Directores, Géneros, Productoras y Tipos).
 
 **Lo más importante en 90 segundos:** La API cuenta con un diseño de rutas totalmente simétrico y un controlador centralizado que verifica la existencia de llaves foráneas antes de alterar la base de datos, resolviendo las consultas mediante la función `populate` de Mongoose para entregar objetos enriquecidos.
@@ -25,17 +29,21 @@ Este proyecto resuelve la gestión de contenidos para una plataforma de streamin
 ---
 
 ## 2. Arquitectura del Proyecto (Patrón MVC)
+
 El proyecto implementa el patrón **Modelo-Vista-Controlador (MVC)** para separar responsabilidades de forma limpia:
 
-* **`config/`**: Configuración de entorno y conexión con tolerancia a fallos hacia MongoDB.
+* **`config/`**: Configuración de entorno y conexión con tolerancia a fallos hacia MongoDB Atlas.
 * **`models/`**: Esquemas de datos con restricciones nativas de Mongoose.
 * **`controllers/`**: Capa lógica encargada de las validaciones lógicas de persistencia.
 * **`routes/`**: Rutas de la API y mapeo ordenado de verbos HTTP.
-* **`Server.js`**: Punto de entrada de la aplicación y configuración de middlewares globales.
+* **`server.js`**: Punto de entrada de la aplicación y configuración de middlewares globales.
+
+> **Nota:** El proyecto usa **ES Modules** (`import`/`export`) en lugar de CommonJS (`require`).
 
 ---
 
 ## 3. Reglas de Negocio Críticas
+
 El comportamiento del sistema está regido por las siguientes directrices lógicas de datos:
 
 * **Identificación Única:** El `serial` y la `url` de cada producción son únicos. MongoDB restringe los duplicados mediante índices únicos y la API responde `409 Conflict`.
@@ -47,9 +55,10 @@ El comportamiento del sistema está regido por las siguientes directrices lógic
 
 ## 4. Instalación y Levantamiento Rápido
 
-Siga estos pasos para clonar, configurar e iniciar el proyecto localmente en su entorno de desarrollo:
+Sigue estos pasos para clonar, configurar e iniciar el proyecto localmente:
 
 ### a. Clonar el repositorio
+
 ```bash
 git clone https://github.com/JorgeAHernandezC80/Catalog-Media-API_REST.git
 cd Catalog-Media-API_REST
