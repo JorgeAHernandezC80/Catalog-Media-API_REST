@@ -98,40 +98,26 @@ Deberías ver:
 ## 5. Estructura del Catálogo (Endpoints Simétricos 1 al 5)
 
 La API cuenta con cinco módulos independientes que exponen de forma exacta la misma secuencia estructural de operaciones CRUD:
+
 * **Módulos Base:** `/api/v1/generos`, `/api/v1/directores`, `/api/v1/productoras`, `/api/v1/tipos`
 * **Módulo Relacional Central:** `/api/v1/media`
 
-```
-| Secuencia | Acción Realizada              | Método HTTP | Endpoint Relativo |
-| :-------- | :---------------------------- | :---------- | :---------------- |
-| **1**     | Crear un nuevo registro       | `POST`      | `/`               |
-| **2**     | Obtener el listado completo   | `GET`       | `/`               |
-| **3**     | Consultar un registro por ID  | `GET`       | `/:id`            |
-| **4**     | Actualizar un registro por ID | `PUT`       | `/:id`            |
-| **5**     | Eliminar un registro por ID   | `DELETE`    | `/:id`            |
-```
-```
-**Ejemplo de petición POST /api/v1/generos:**
-```
-json
+| Secuencia | Acción Realizada | Método HTTP | Endpoint Relativo |
+| :--- | :--- | :--- | :--- |
+| **1** | Crear un nuevo registro | `POST` | `/` |
+| **2** | Obtener el listado completo | `GET` | `/` |
+| **3** | Consultar un registro por ID | `GET` | `/:id` |
+| **4** | Actualizar un registro por ID | `PUT` | `/:id` |
+| **5** | Eliminar un registro por ID | `DELETE` | `/:id` |
+
+**Ejemplo de petición `POST /api/v1/generos`:**
+
+```json
 {
   "nombre": "Comedia",
   "estado": "Activo",
   "descripcion": "Películas con humor"
 }
-```
-Respuesta (201 Created):
-```
-json
-{
-  "_id": "65f1a2b3c4d5e6f7a8b9c0d1",
-  "nombre": "Comedia",
-  "estado": "Activo",
-  "descripcion": "Películas con humor",
-  "createdAt": "2026-11-06T10:00:00.000Z",
-  "updatedAt": "2026-11-06T10:00:00.000Z"
-}
-```
 ---
 
 ## 6. Autores y Créditos
