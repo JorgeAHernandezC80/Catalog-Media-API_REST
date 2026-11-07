@@ -102,7 +102,6 @@ La API cuenta con cinco módulos independientes que exponen de forma exacta la m
 * **Módulo Relacional Central:** `/api/v1/media`
 
 ```
-```
 | Secuencia | Acción Realizada              | Método HTTP | Endpoint Relativo |
 | :-------- | :---------------------------- | :---------- | :---------------- |
 | **1**     | Crear un nuevo registro       | `POST`      | `/`               |
@@ -112,7 +111,7 @@ La API cuenta con cinco módulos independientes que exponen de forma exacta la m
 | **5**     | Eliminar un registro por ID   | `DELETE`    | `/:id`            |
 ```
 ```
-Ejemplo de petición POST /api/v1/generos:
+**Ejemplo de petición POST /api/v1/generos:**
 ```
 json
 {
