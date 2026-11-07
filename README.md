@@ -112,12 +112,14 @@ La API cuenta con cinco módulos independientes que exponen de forma exacta la m
 
 **Ejemplo de petición `POST /api/v1/generos`:**
 
-```json
+```
+json
 {
   "nombre": "Comedia",
   "estado": "Activo",
   "descripcion": "Películas con humor"
 }
+```
 ---
 
 ## 6. Autores y Créditos
