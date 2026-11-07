@@ -71,9 +71,17 @@ npm install
 
 ### c. Configurar variables de entorno
 Copia el archivo `.env.template` y renómbralo a `.env` en la raíz del proyecto (o créelo) con los siguientes parámetros:
+```bash
+cp .env.template .env
+```
+
 ```env
+# Puerto del servidor
 PORT=5000
-MONGO_URI=mongodb://127.0.0.1:27017/catalog_media_db
+
+# Cadena de conexión a MongoDB local
+# Si usas MongoDB Atlas, reemplaza esta línea por tu cadena de conexión
+MONGODB_URI=mongodb://127.0.0.1:27017/catalog_media_db
 ```
 
 ### d. Cargar los datos iniciales del caso de estudio
