@@ -87,6 +87,8 @@ El proyecto utiliza `nodemon` para reiniciarse automáticamente ante cualquier c
 ```bash
 npm run dev
 ```
+🔌 Conexión exitosa a la base de datos de la IU Digital
+🚀 Servidor ejecutándose en el puerto 5000
 
 ---
 
