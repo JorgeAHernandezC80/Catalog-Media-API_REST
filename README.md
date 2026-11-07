@@ -92,9 +92,7 @@ Deberías ver:
 🔌 Conexión exitosa a la base de datos de la IU Digital
 🚀 Servidor ejecutándose en el puerto 5000
 ```
-
 ---
-
 ## 5. Estructura del Catálogo (Endpoints Simétricos 1 al 5)
 
 La API cuenta con cinco módulos independientes que exponen de forma exacta la misma secuencia estructural de operaciones CRUD:
@@ -111,7 +109,6 @@ La API cuenta con cinco módulos independientes que exponen de forma exacta la m
 | **5** | Eliminar un registro por ID | `DELETE` | `/:id` |
 
 **Ejemplo de petición `POST /api/v1/generos`:**
-
 ```
 json
 {
@@ -134,6 +131,7 @@ json
 ```
 ---
 ## 6. Estructura de Archivos
+
 ```
 Catalog-Media-API_REST/
 ├── config/
@@ -166,6 +164,7 @@ Catalog-Media-API_REST/
 ```
 ---
 ## 7. Buenas Prácticas Aplicadas
+
 * **Nombres de archivos:** kebab-case + sufijo (genero.model.js, genero.controller.js, genero.routes.js).
 * **Nombres de carpetas:** minúsculas (config/, controllers/, models/, routes/).
 * **Endpoints:** plural, kebab-case, con versión (/api/v1/generos).
@@ -175,14 +174,17 @@ Catalog-Media-API_REST/
 * **Módulos:** ES Modules (import/export) en lugar de CommonJS (require).
 * **Configuración:** .env excluido de Git, .env.template incluido.
 * **Seguridad:** Usuario de base de datos con privilegios mínimos e IP autorizada en Atlas.
+---
 
-## 6. Autores y Créditos
+## 8. Autores y Créditos
 * **Desarrollador:** Jorge A. Hernandez C.
 * **Docente Evaluador:** Federico Henao
 * **Institución:** Institución Universitaria Digital de Antioquia (IU Digital)
 * **Curso:** Proyecto Integrado II - Desarrollo de Aplicaciones Web
 * **Semestre:** Sexto Semestre - PREICA2602B020099
-## 7. Licencia y Derechos de Autor
+---
+
+## 9. Licencia y Derechos de Autor
 
 Copyright (c) 2026 Jorge A. Hernández C. Todos los derechos reservados. Este software y su código fuente son propiedad de Jorge A. Hernández C. No se concede ningún permiso para usar, copiar, modificar, fusionar, publish, distribuir, sublicenciar y/o vender copias de este software, ni para permitir que terceros lo hagan, sin el consentimiento previo y por escrito del autor. Todos los derechos no otorgados expresamente quedan reservados. Ver LICENSE.
 
