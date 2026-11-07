@@ -98,8 +98,8 @@ Deberías ver:
 ## 5. Estructura del Catálogo (Endpoints Simétricos 1 al 5)
 
 La API cuenta con cinco módulos independientes que exponen de forma exacta la misma secuencia estructural de operaciones CRUD:
-* **Módulos Base:** `/api/generos`, `/api/directores`, `/api/productoras`, `/api/tipos`
-* **Módulo Relacional Central:** `/api/media`
+* **Módulos Base:** `/api/v1/generos`, `/api/v1/directores`, `/api/v1/productoras`, `/api/v1/tipos`
+* **Módulo Relacional Central:** `/api/v1/media`
 
 ```
 ```
