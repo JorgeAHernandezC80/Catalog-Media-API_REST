@@ -111,7 +111,6 @@ La API cuenta con cinco módulos independientes que exponen de forma exacta la m
 | **4**     | Actualizar un registro por ID | `PUT`       | `/:id`            |
 | **5**     | Eliminar un registro por ID   | `DELETE`    | `/:id`            |
 ```
-```
 Ejemplo de petición POST /api/v1/generos:
 ```
 json
