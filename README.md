@@ -1,23 +1,27 @@
-# Catalog-Media-API_REST
+# 🎬 Catalog-Media-API_REST
 
-API REST modular diseñada para la administración y control centralizado de un catálogo de producciones audiovisuales (Películas y Series). El sistema implementa validaciones robustas para garantizar que todos los registros mantengan una relación consistente en la base de datos sin generar registros huérfanos.
+API RESTful modular diseñada para la administración y control centralizado de un catálogo de producciones audiovisuales (Películas y Series). El sistema implementa validaciones robustas para garantizar que todos los registros mantengan una relación consistente en la base de datos sin generar registros huérfanos.
 
 Desarrollado para el curso **Proyecto Integrado II - Desarrollo de Aplicaciones Web** en la **Institución Universitaria Digital de Antioquia (IU Digital)**.
 
 ---
 
-## Índice
+## 📋 Índice
+
 1. [Descripción General & Propósito](#1-descripción-general--propósito)
 2. [Arquitectura del Proyecto (Patrón MVC)](#2-arquitectura-del-proyecto-patrón-mvc)
 3. [Reglas de Negocio Críticas](#3-reglas-de-negocio-críticas)
 4. [Instalación y Levantamiento Rápido](#4-instalación-y-levantamiento-rápido)
 5. [Estructura del Catálogo (Endpoints Simétricos 1 al 5)](#5-estructura-del-catálogo-endpoints-simétricos-1-al-5)
-6. [Autores y Créditos](#6-autores-y-créditos)
-7. [Licencia y Derechos de Autor](#7-Licencia-y-Derechos-de-Autor)
+6. [Estructura de Archivos](#6-estructura-de-archivos)
+7. [Buenas Prácticas Aplicadas](#7-buenas-prácticas-aplicadas)
+8. [Autores y Créditos](#8-autores-y-créditos)
+9. [Licencia y Derechos de Autor](#9-licencia-y-derechos-de-autor)
 
 ---
 
 ## 1. Descripción General & Propósito
+
 Este proyecto resuelve la gestión de contenidos para una plataforma de streaming multimedia. Permite crear, consultar, editar y eliminar películas o series asegurando que cada título esté obligatoriamente vinculado a entidades reales de la plataforma (Directores, Géneros, Productoras y Tipos).
 
 **Lo más importante en 90 segundos:** La API cuenta con un diseño de rutas totalmente simétrico y un controlador centralizado que verifica la existencia de llaves foráneas antes de alterar la base de datos, resolviendo las consultas mediante la función `populate` de Mongoose para entregar objetos enriquecidos.
@@ -25,17 +29,21 @@ Este proyecto resuelve la gestión de contenidos para una plataforma de streamin
 ---
 
 ## 2. Arquitectura del Proyecto (Patrón MVC)
+
 El proyecto implementa el patrón **Modelo-Vista-Controlador (MVC)** para separar responsabilidades de forma limpia:
 
-* **`config/`**: Configuración de entorno y conexión con tolerancia a fallos hacia MongoDB.
+* **`config/`**: Configuración de entorno y conexión con tolerancia a fallos hacia MongoDB Atlas.
 * **`models/`**: Esquemas de datos con restricciones nativas de Mongoose.
 * **`controllers/`**: Capa lógica encargada de las validaciones lógicas de persistencia.
 * **`routes/`**: Rutas de la API y mapeo ordenado de verbos HTTP.
-* **`Server.js`**: Punto de entrada de la aplicación y configuración de middlewares globales.
+* **`server.js`**: Punto de entrada de la aplicación y configuración de middlewares globales.
+
+> **Nota:** El proyecto usa **ES Modules** (`import`/`export`) en lugar de CommonJS (`require`).
 
 ---
 
 ## 3. Reglas de Negocio Críticas
+
 El comportamiento del sistema está regido por las siguientes directrices lógicas de datos:
 
 * **Identificación Única:** El `serial` y la `url` de cada producción son únicos. MongoDB restringe los duplicados mediante índices únicos y la API responde `409 Conflict`.
@@ -47,9 +55,10 @@ El comportamiento del sistema está regido por las siguientes directrices lógic
 
 ## 4. Instalación y Levantamiento Rápido
 
-Siga estos pasos para clonar, configurar e iniciar el proyecto localmente en su entorno de desarrollo:
+Sigue estos pasos para clonar, configurar e iniciar el proyecto localmente:
 
 ### a. Clonar el repositorio
+
 ```bash
 git clone https://github.com/JorgeAHernandezC80/Catalog-Media-API_REST.git
 cd Catalog-Media-API_REST
@@ -78,36 +87,104 @@ El proyecto utiliza `nodemon` para reiniciarse automáticamente ante cualquier c
 ```bash
 npm run dev
 ```
-
+Deberías ver:
+```
+🔌 Conexión exitosa a la base de datos de la IU Digital
+🚀 Servidor ejecutándose en el puerto 5000
+```
 ---
-
 ## 5. Estructura del Catálogo (Endpoints Simétricos 1 al 5)
 
 La API cuenta con cinco módulos independientes que exponen de forma exacta la misma secuencia estructural de operaciones CRUD:
-* **Módulos Base:** `/api/generos`, `/api/directores`, `/api/productoras`, `/api/tipos`
-* **Módulo Relacional Central:** `/api/media`
+
+* **Módulos Base:** `/api/v1/generos`, `/api/v1/directores`, `/api/v1/productoras`, `/api/v1/tipos`
+* **Módulo Relacional Central:** `/api/v1/media`
+
+| Secuencia | Acción Realizada | Método HTTP | Endpoint Relativo |
+| :--- | :--- | :--- | :--- |
+| **1** | Crear un nuevo registro | `POST` | `/` |
+| **2** | Obtener el listado completo | `GET` | `/` |
+| **3** | Consultar un registro por ID | `GET` | `/:id` |
+| **4** | Actualizar un registro por ID | `PUT` | `/:id` |
+| **5** | Eliminar un registro por ID | `DELETE` | `/:id` |
+
+**Ejemplo de petición `POST /api/v1/generos`:**
+```
+json
+{
+  "nombre": "Comedia",
+  "estado": "Activo",
+  "descripcion": "Películas con humor"
+}
+```
+Respuesta (201 Created):
+```
+json
+{
+  "_id": "65f1a2b3c4d5e6f7a8b9c0d1",
+  "nombre": "Comedia",
+  "estado": "Activo",
+  "descripcion": "Películas con humor",
+  "createdAt": "2026-11-06T10:00:00.000Z",
+  "updatedAt": "2026-11-06T10:00:00.000Z"
+}
+```
+---
+## 6. Estructura de Archivos
 
 ```
+Catalog-Media-API_REST/
+├── config/
+│   └── db-connection.js
+├── controllers/
+│   ├── genero.controller.js
+│   ├── director.controller.js
+│   ├── productora.controller.js
+│   ├── tipo.controller.js
+│   └── media.controller.js
+├── models/
+│   ├── genero.model.js
+│   ├── director.model.js
+│   ├── productora.model.js
+│   ├── tipo.model.js
+│   └── media.model.js
+├── routes/
+│   ├── genero.routes.js
+│   ├── director.routes.js
+│   ├── productora.routes.js
+│   ├── tipo.routes.js
+│   └── media.routes.js
+├── .env.template
+├── .gitignore
+├── package.json
+├── package-lock.json
+├── README.md
+├── seed.script.js
+└── server.js
 ```
-| Secuencia | Acción Realizada              | Método HTTP | Endpoint Relativo |
-| :-------- | :---------------------------- | :---------- | :---------------- |
-| **1**     | Crear un nuevo registro       | `POST`      | `/`               |
-| **2**     | Obtener el listado completo   | `GET`       | `/`               |
-| **3**     | Consultar un registro por ID  | `GET`       | `/:id`            |
-| **4**     | Actualizar un registro por ID | `PUT`       | `/:id`            |
-| **5**     | Eliminar un registro por ID   | `DELETE`    | `/:id`            |
-```
-```
+---
+## 7. Buenas Prácticas Aplicadas
 
+* **Nombres de archivos:** kebab-case + sufijo (genero.model.js, genero.controller.js, genero.routes.js).
+* **Nombres de carpetas:** minúsculas (config/, controllers/, models/, routes/).
+* **Endpoints:** plural, kebab-case, con versión (/api/v1/generos).
+* **Variables y funciones:** camelCase (getGeneros, createMedia).
+* **Clases y modelos:** PascalCase (Genero, Media).
+* **Variables de entorno:** UPPER_SNAKE_CASE (PORT, MONGODB_URI).
+* **Módulos:** ES Modules (import/export) en lugar de CommonJS (require).
+* **Configuración:** .env excluido de Git, .env.template incluido.
+* **Seguridad:** Usuario de base de datos con privilegios mínimos e IP autorizada en Atlas.
 ---
 
-## 6. Autores y Créditos
+## 8. Autores y Créditos
 * **Desarrollador:** Jorge A. Hernandez C.
 * **Docente Evaluador:** Federico Henao
 * **Institución:** Institución Universitaria Digital de Antioquia (IU Digital)
 * **Curso:** Proyecto Integrado II - Desarrollo de Aplicaciones Web
 * **Semestre:** Sexto Semestre - PREICA2602B020099
-## 7. Licencia y Derechos de Autor
+---
+
+## 9. Licencia y Derechos de Autor
 
 Copyright (c) 2026 Jorge A. Hernández C. Todos los derechos reservados. Este software y su código fuente son propiedad de Jorge A. Hernández C. No se concede ningún permiso para usar, copiar, modificar, fusionar, publish, distribuir, sublicenciar y/o vender copias de este software, ni para permitir que terceros lo hagan, sin el consentimiento previo y por escrito del autor. Todos los derechos no otorgados expresamente quedan reservados. Ver LICENSE.
 
