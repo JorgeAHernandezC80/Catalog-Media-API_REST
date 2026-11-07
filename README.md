@@ -120,6 +120,18 @@ json
   "descripcion": "Películas con humor"
 }
 ```
+Respuesta (201 Created):
+```
+json
+{
+  "_id": "65f1a2b3c4d5e6f7a8b9c0d1",
+  "nombre": "Comedia",
+  "estado": "Activo",
+  "descripcion": "Películas con humor",
+  "createdAt": "2026-11-06T10:00:00.000Z",
+  "updatedAt": "2026-11-06T10:00:00.000Z"
+}
+```
 ---
 
 ## 6. Autores y Créditos
