@@ -4,10 +4,10 @@
 // Se puede ejecutar varias veces: no duplica registros que ya existen.
 // Uso: npm run seed
 
-require('dotenv').config();
-const mongoose = require('mongoose');
-const Genero = require('./models/Genero');
-const Tipo = require('./models/Tipo');
+import 'dotenv/config';
+import mongoose from 'mongoose';
+import Genero from './models/genero.model.js';
+import Tipo from './models/tipo.model.js';
 
 const GENEROS = [
     { nombre: 'Acción', estado: 'Activo', descripcion: 'Producciones con ritmo intenso, peleas y persecuciones' },
@@ -35,7 +35,7 @@ const sembrar = async (Modelo, datos) => {
 };
 
 const ejecutar = async () => {
-    const dbURI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/catalog_media_db';
+    const dbURI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/catalog_media_db';
     try {
         await mongoose.connect(dbURI);
         await sembrar(Genero, GENEROS);
