@@ -3,6 +3,5 @@ node_modules/
 .postman/
 
 # Archivos locales de Claude Code y memoria del Organismo
-.claude/
+.claude/settings.local.json
 organismo_trabajo/
-
