@@ -50,6 +50,7 @@ El comportamiento del sistema está regido por las siguientes directrices lógic
 * **Solo Referencias Activas:** Al crear o editar una producción, el Género, Director y Productora deben existir y estar en estado `Activo`. El Tipo solo debe existir (no maneja estado).
 * **Sin Registros Huérfanos:** No se puede eliminar un Género, Director, Productora o Tipo que tenga producciones asociadas (`409 Conflict`).
 * **Formatos Estrictos:** La URL de reproducción y la portada se validan como URLs `http`/`https`, y el año de estreno no puede ser anterior a 1888 (origen del cine).
+* **Varios Géneros:** Una producción ya no tiene un solo género, sino una lista en el campo `generos`. La lista debe tener de 1 a 5 IDs, sin repetidos, y cada género debe existir y estar `Activo`. Si la lista está vacía, pasa de 5, tiene repetidos, un ID no es válido o un género está `Inactivo`, la API responde `400 Bad Request`; si un género no existe, responde `404 Not Found`. El campo antiguo `genero` ya no se acepta y devuelve `400` con un aviso para usar `generos`. Además, no se puede eliminar un género que aparezca en la lista `generos` de alguna producción (`409 Conflict`); en ese caso conviene cambiarlo a `Inactivo` o reasignar las producciones.
 
 ---
 
@@ -135,6 +136,84 @@ json
   "descripcion": "Películas con humor",
   "createdAt": "2026-11-06T10:00:00.000Z",
   "updatedAt": "2026-11-06T10:00:00.000Z"
+}
+```
+
+**Ejemplo de petición `POST /api/v1/media` con varios géneros:**
+
+El campo `generos` es una lista con los IDs de 1 a 5 géneros activos, sin repetir. Los demás IDs (`director`, `productora` y `tipo`) siguen siendo un solo valor.
+```json
+{
+  "serial": "PEL-0001",
+  "titulo": "Viaje a las estrellas",
+  "sinopsis": "Una tripulación explora los límites del universo conocido.",
+  "url": "https://catalogo.ejemplo.com/peliculas/viaje-a-las-estrellas",
+  "portada": "https://catalogo.ejemplo.com/portadas/viaje-a-las-estrellas.jpg",
+  "anoEstreno": 2024,
+  "generos": ["<id1>", "<id2>"],
+  "director": "<idDirector>",
+  "productora": "<idProductora>",
+  "tipo": "<idTipo>"
+}
+```
+Respuesta (201 Created): la producción guardada, con `generos` como lista de IDs.
+
+Si se envía el campo antiguo `genero` en vez de `generos`, la respuesta es `400 Bad Request`:
+```json
+{
+  "message": "El campo 'genero' ya no se usa. Ahora se llama 'generos' y debe ser una lista de IDs de género (de 1 a 5)."
+}
+```
+
+**Filtro por género: `GET /api/v1/media?genero=<id>`**
+
+Devuelve solo las producciones que tienen ese género dentro de su lista `generos`. Los géneros, el director, la productora y el tipo llegan con sus datos básicos gracias a `populate`. Sin el parámetro, la ruta devuelve todo el catálogo, como antes.
+
+Respuesta (200 OK):
+```json
+[
+  {
+    "_id": "65f1a2b3c4d5e6f7a8b9c0e1",
+    "serial": "PEL-0001",
+    "titulo": "Viaje a las estrellas",
+    "generos": [
+      { "_id": "<id1>", "nombre": "Ciencia ficción", "estado": "Activo" },
+      { "_id": "<id2>", "nombre": "Aventura", "estado": "Activo" }
+    ],
+    "director": { "_id": "<idDirector>", "nombres": "Ana Gómez", "estado": "Activo" },
+    "productora": { "_id": "<idProductora>", "nombre": "Estudios Andinos", "eslogan": "Historias que inspiran", "estado": "Activo" },
+    "tipo": { "_id": "<idTipo>", "nombre": "Película" }
+  }
+]
+```
+Si ninguna producción tiene ese género, la respuesta es `200 OK` con una lista vacía (`[]`). Si el ID no es válido, la respuesta es `400 Bad Request`:
+```json
+{
+  "message": "El parámetro 'genero' debe ser un ID de género válido."
+}
+```
+
+**Filtro por estado: `GET /api/v1/generos?estado=Activo`**
+
+Devuelve solo los géneros con ese estado. Los valores permitidos son `Activo` e `Inactivo`. Sin el parámetro, la ruta devuelve todos los géneros, como antes.
+
+Respuesta (200 OK):
+```json
+[
+  {
+    "_id": "65f1a2b3c4d5e6f7a8b9c0d1",
+    "nombre": "Comedia",
+    "estado": "Activo",
+    "descripcion": "Películas con humor",
+    "createdAt": "2026-11-06T10:00:00.000Z",
+    "updatedAt": "2026-11-06T10:00:00.000Z"
+  }
+]
+```
+Con cualquier otro valor, por ejemplo `?estado=Pausado`, la respuesta es `400 Bad Request`:
+```json
+{
+  "message": "El parámetro estado no es válido. Valores permitidos: Activo, Inactivo."
 }
 ```
 ---

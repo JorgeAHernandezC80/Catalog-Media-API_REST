@@ -13,6 +13,33 @@ const esUrlValida = (valor) => {
     }
 };
 
+// Límite de géneros por producción. Lo dejamos en una constante para no
+// repetir el número en el validador y en el mensaje de error.
+const MAX_GENEROS = 5;
+
+// Valida la lista de géneros: debe tener entre 1 y MAX_GENEROS elementos y
+// ninguno repetido. Mongoose pone [] por defecto en los arreglos, por eso
+// 'required' no sirve aquí y revisamos el largo a mano.
+const validadoresGeneros = [
+    {
+        validator: (lista) => Array.isArray(lista) && lista.length >= 1,
+        message: 'La producción debe estar asociada al menos a un Género'
+    },
+    {
+        validator: (lista) => !Array.isArray(lista) || lista.length <= MAX_GENEROS,
+        message: `La producción no puede tener más de ${MAX_GENEROS} géneros`
+    },
+    {
+        // Comparamos como texto porque dos ObjectId iguales son objetos distintos
+        validator: (lista) => {
+            if (!Array.isArray(lista)) return true;
+            const textos = lista.map((id) => String(id));
+            return new Set(textos).size === textos.length;
+        },
+        message: 'La lista de géneros no puede tener géneros repetidos'
+    }
+];
+
 // Definición del esquema para el modelo 'Media'
 const MediaSchema = new Schema({
     serial: {
@@ -55,10 +82,10 @@ const MediaSchema = new Schema({
         min: [1888, 'El año de estreno no puede ser anterior a la creación del cine (1888)']
     },
     // RELACIONES CRÍTICAS (Integridad Referencial)
-    genero: {
-        type: Schema.Types.ObjectId,
-        ref: 'Genero',
-        required: [true, 'La producción debe estar asociada a un Género']
+    // Una producción puede tener varios géneros (de 1 a 5, sin repetir)
+    generos: {
+        type: [{ type: Schema.Types.ObjectId, ref: 'Genero' }],
+        validate: validadoresGeneros
     },
     director: {
         type: Schema.Types.ObjectId,

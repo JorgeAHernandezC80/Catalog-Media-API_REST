@@ -49,12 +49,13 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/generos",
+              "raw": "{{baseUrl}}/api/v1/generos",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
+                "v1",
                 "generos"
               ]
             },
@@ -89,12 +90,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/generos",
+              "raw": "{{baseUrl}}/api/v1/generos",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
+                "v1",
                 "generos"
               ]
             }
@@ -118,12 +120,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/generos/{{generoId}}",
+              "raw": "{{baseUrl}}/api/v1/generos/{{generoId}}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
+                "v1",
                 "generos",
                 "{{generoId}}"
               ]
@@ -152,12 +155,13 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/generos/{{generoId}}",
+              "raw": "{{baseUrl}}/api/v1/generos/{{generoId}}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
+                "v1",
                 "generos",
                 "{{generoId}}"
               ]
@@ -184,6 +188,44 @@
               }
             }
           ]
+        },
+        {
+          "name": "5. Listar Géneros activos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/generos?estado=Activo",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "generos"
+              ],
+              "query": [
+                {
+                  "key": "estado",
+                  "value": "Activo"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 200 OK\", () => pm.response.to.have.status(200));",
+                  "const lista = pm.response.json();",
+                  "pm.test(\"Devuelve un arreglo\", () => pm.expect(lista).to.be.an(\"array\"));",
+                  "pm.test(\"Solo trae géneros Activo\", () => lista.forEach(g => pm.expect(g.estado).to.eql(\"Activo\")));"
+                ]
+              }
+            }
+          ]
         }
       ]
     },
@@ -201,12 +243,13 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/directores",
+              "raw": "{{baseUrl}}/api/v1/directores",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
+                "v1",
                 "directores"
               ]
             },
@@ -241,12 +284,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/directores",
+              "raw": "{{baseUrl}}/api/v1/directores",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
+                "v1",
                 "directores"
               ]
             }
@@ -270,12 +314,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/directores/{{directorId}}",
+              "raw": "{{baseUrl}}/api/v1/directores/{{directorId}}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
+                "v1",
                 "directores",
                 "{{directorId}}"
               ]
@@ -304,12 +349,13 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/directores/{{directorId}}",
+              "raw": "{{baseUrl}}/api/v1/directores/{{directorId}}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
+                "v1",
                 "directores",
                 "{{directorId}}"
               ]
@@ -353,12 +399,13 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/productoras",
+              "raw": "{{baseUrl}}/api/v1/productoras",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
+                "v1",
                 "productoras"
               ]
             },
@@ -393,12 +440,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/productoras",
+              "raw": "{{baseUrl}}/api/v1/productoras",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
+                "v1",
                 "productoras"
               ]
             }
@@ -422,12 +470,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/productoras/{{productoraId}}",
+              "raw": "{{baseUrl}}/api/v1/productoras/{{productoraId}}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
+                "v1",
                 "productoras",
                 "{{productoraId}}"
               ]
@@ -456,12 +505,13 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/productoras/{{productoraId}}",
+              "raw": "{{baseUrl}}/api/v1/productoras/{{productoraId}}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
+                "v1",
                 "productoras",
                 "{{productoraId}}"
               ]
@@ -505,12 +555,13 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/tipos",
+              "raw": "{{baseUrl}}/api/v1/tipos",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
+                "v1",
                 "tipos"
               ]
             },
@@ -545,12 +596,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/tipos",
+              "raw": "{{baseUrl}}/api/v1/tipos",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
+                "v1",
                 "tipos"
               ]
             }
@@ -574,12 +626,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/tipos/{{tipoId}}",
+              "raw": "{{baseUrl}}/api/v1/tipos/{{tipoId}}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
+                "v1",
                 "tipos",
                 "{{tipoId}}"
               ]
@@ -608,12 +661,13 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/tipos/{{tipoId}}",
+              "raw": "{{baseUrl}}/api/v1/tipos/{{tipoId}}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
+                "v1",
                 "tipos",
                 "{{tipoId}}"
               ]
@@ -657,18 +711,19 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/media",
+              "raw": "{{baseUrl}}/api/v1/media",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
+                "v1",
                 "media"
               ]
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"serial\": \"{{serial}}\",\n  \"titulo\": \"Interestelar\",\n  \"sinopsis\": \"Un grupo de exploradores viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.\",\n  \"url\": \"{{mediaUrl}}\",\n  \"portada\": \"https://image.tmdb.org/t/p/w500/interestelar.jpg\",\n  \"anoEstreno\": 2014,\n  \"genero\": \"{{generoId}}\",\n  \"director\": \"{{directorId}}\",\n  \"productora\": \"{{productoraId}}\",\n  \"tipo\": \"{{tipoId}}\"\n}",
+              "raw": "{\n  \"serial\": \"{{serial}}\",\n  \"titulo\": \"Interestelar\",\n  \"sinopsis\": \"Un grupo de exploradores viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.\",\n  \"url\": \"{{mediaUrl}}\",\n  \"portada\": \"https://image.tmdb.org/t/p/w500/interestelar.jpg\",\n  \"anoEstreno\": 2014,\n  \"generos\": [\"{{generoId}}\"],\n  \"director\": \"{{directorId}}\",\n  \"productora\": \"{{productoraId}}\",\n  \"tipo\": \"{{tipoId}}\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -709,12 +764,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/media",
+              "raw": "{{baseUrl}}/api/v1/media",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
+                "v1",
                 "media"
               ]
             }
@@ -728,7 +784,8 @@
                   "pm.test(\"Status 200 OK\", () => pm.response.to.have.status(200));",
                   "pm.test(\"Las relaciones vienen pobladas\", () => {",
                   "    const item = pm.response.json().find(m => m._id === pm.collectionVariables.get(\"mediaId\"));",
-                  "    pm.expect(item.genero).to.have.property(\"nombre\");",
+                  "    pm.expect(item.generos).to.be.an(\"array\");",
+                  "    pm.expect(item.generos[0]).to.have.property(\"nombre\");",
                   "    pm.expect(item.director).to.have.property(\"nombres\");",
                   "});"
                 ]
@@ -742,12 +799,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/media/{{mediaId}}",
+              "raw": "{{baseUrl}}/api/v1/media/{{mediaId}}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
+                "v1",
                 "media",
                 "{{mediaId}}"
               ]
@@ -776,12 +834,13 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/media/{{mediaId}}",
+              "raw": "{{baseUrl}}/api/v1/media/{{mediaId}}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
+                "v1",
                 "media",
                 "{{mediaId}}"
               ]
@@ -808,6 +867,48 @@
               }
             }
           ]
+        },
+        {
+          "name": "5. Listar catálogo filtrando por género",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/media?genero={{generoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "media"
+              ],
+              "query": [
+                {
+                  "key": "genero",
+                  "value": "{{generoId}}"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 200 OK\", () => pm.response.to.have.status(200));",
+                  "const lista = pm.response.json();",
+                  "pm.test(\"Devuelve un arreglo\", () => pm.expect(lista).to.be.an(\"array\"));",
+                  "pm.test(\"Incluye la producción creada\", () => pm.expect(lista.some(m => m._id === pm.collectionVariables.get(\"mediaId\"))).to.be.true);",
+                  "pm.test(\"Todas tienen el género pedido\", () => {",
+                  "    const generoId = pm.collectionVariables.get(\"generoId\");",
+                  "    lista.forEach(m => pm.expect(m.generos.map(g => g._id)).to.include(generoId));",
+                  "});"
+                ]
+              }
+            }
+          ]
         }
       ]
     },
@@ -826,18 +927,19 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/media",
+              "raw": "{{baseUrl}}/api/v1/media",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
+                "v1",
                 "media"
               ]
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"serial\": \"{{serial}}\",\n  \"titulo\": \"Interestelar\",\n  \"sinopsis\": \"Un grupo de exploradores viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.\",\n  \"url\": \"{{mediaUrl}}\",\n  \"portada\": \"https://image.tmdb.org/t/p/w500/interestelar.jpg\",\n  \"anoEstreno\": 2014,\n  \"genero\": \"{{generoId}}\",\n  \"director\": \"{{directorId}}\",\n  \"productora\": \"{{productoraId}}\",\n  \"tipo\": \"{{tipoId}}\"\n}",
+              "raw": "{\n  \"serial\": \"{{serial}}\",\n  \"titulo\": \"Interestelar\",\n  \"sinopsis\": \"Un grupo de exploradores viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.\",\n  \"url\": \"{{mediaUrl}}\",\n  \"portada\": \"https://image.tmdb.org/t/p/w500/interestelar.jpg\",\n  \"anoEstreno\": 2014,\n  \"generos\": [\"{{generoId}}\"],\n  \"director\": \"{{directorId}}\",\n  \"productora\": \"{{productoraId}}\",\n  \"tipo\": \"{{tipoId}}\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -868,18 +970,19 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/media",
+              "raw": "{{baseUrl}}/api/v1/media",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
+                "v1",
                 "media"
               ]
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"serial\": \"MED-URL-{{$timestamp}}\",\n  \"titulo\": \"Interestelar\",\n  \"sinopsis\": \"Un grupo de exploradores viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.\",\n  \"url\": \"esto no es una url\",\n  \"portada\": \"https://image.tmdb.org/t/p/w500/interestelar.jpg\",\n  \"anoEstreno\": 2014,\n  \"genero\": \"{{generoId}}\",\n  \"director\": \"{{directorId}}\",\n  \"productora\": \"{{productoraId}}\",\n  \"tipo\": \"{{tipoId}}\"\n}",
+              "raw": "{\n  \"serial\": \"MED-URL-{{$timestamp}}\",\n  \"titulo\": \"Interestelar\",\n  \"sinopsis\": \"Un grupo de exploradores viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.\",\n  \"url\": \"esto no es una url\",\n  \"portada\": \"https://image.tmdb.org/t/p/w500/interestelar.jpg\",\n  \"anoEstreno\": 2014,\n  \"generos\": [\"{{generoId}}\"],\n  \"director\": \"{{directorId}}\",\n  \"productora\": \"{{productoraId}}\",\n  \"tipo\": \"{{tipoId}}\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -910,18 +1013,19 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/media",
+              "raw": "{{baseUrl}}/api/v1/media",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
+                "v1",
                 "media"
               ]
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"serial\": \"MED-ANO-{{$timestamp}}\",\n  \"titulo\": \"Interestelar\",\n  \"sinopsis\": \"Un grupo de exploradores viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.\",\n  \"url\": \"https://ejemplo.com/{{$timestamp}}\",\n  \"portada\": \"https://image.tmdb.org/t/p/w500/interestelar.jpg\",\n  \"anoEstreno\": 1800,\n  \"genero\": \"{{generoId}}\",\n  \"director\": \"{{directorId}}\",\n  \"productora\": \"{{productoraId}}\",\n  \"tipo\": \"{{tipoId}}\"\n}",
+              "raw": "{\n  \"serial\": \"MED-ANO-{{$timestamp}}\",\n  \"titulo\": \"Interestelar\",\n  \"sinopsis\": \"Un grupo de exploradores viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.\",\n  \"url\": \"https://ejemplo.com/{{$timestamp}}\",\n  \"portada\": \"https://image.tmdb.org/t/p/w500/interestelar.jpg\",\n  \"anoEstreno\": 1800,\n  \"generos\": [\"{{generoId}}\"],\n  \"director\": \"{{directorId}}\",\n  \"productora\": \"{{productoraId}}\",\n  \"tipo\": \"{{tipoId}}\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -942,7 +1046,7 @@
           ]
         },
         {
-          "name": "Falta el género → 400",
+          "name": "Falta 'generos' → 400",
           "request": {
             "method": "POST",
             "header": [
@@ -952,12 +1056,13 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/media",
+              "raw": "{{baseUrl}}/api/v1/media",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
+                "v1",
                 "media"
               ]
             },
@@ -977,7 +1082,7 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test(\"Exige el género (400)\", () => pm.response.to.have.status(400));"
+                  "pm.test(\"Exige la lista de géneros (400)\", () => pm.response.to.have.status(400));"
                 ]
               }
             }
@@ -994,12 +1099,13 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/generos",
+              "raw": "{{baseUrl}}/api/v1/generos",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
+                "v1",
                 "generos"
               ]
             },
@@ -1039,18 +1145,19 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/media",
+              "raw": "{{baseUrl}}/api/v1/media",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
+                "v1",
                 "media"
               ]
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"serial\": \"MED-IN-{{$timestamp}}\",\n  \"titulo\": \"Interestelar\",\n  \"sinopsis\": \"Un grupo de exploradores viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.\",\n  \"url\": \"https://ejemplo.com/in{{$timestamp}}\",\n  \"portada\": \"https://image.tmdb.org/t/p/w500/interestelar.jpg\",\n  \"anoEstreno\": 2014,\n  \"genero\": \"{{generoInactivoId}}\",\n  \"director\": \"{{directorId}}\",\n  \"productora\": \"{{productoraId}}\",\n  \"tipo\": \"{{tipoId}}\"\n}",
+              "raw": "{\n  \"serial\": \"MED-IN-{{$timestamp}}\",\n  \"titulo\": \"Interestelar\",\n  \"sinopsis\": \"Un grupo de exploradores viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.\",\n  \"url\": \"https://ejemplo.com/in{{$timestamp}}\",\n  \"portada\": \"https://image.tmdb.org/t/p/w500/interestelar.jpg\",\n  \"anoEstreno\": 2014,\n  \"generos\": [\"{{generoInactivoId}}\"],\n  \"director\": \"{{directorId}}\",\n  \"productora\": \"{{productoraId}}\",\n  \"tipo\": \"{{tipoId}}\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1071,17 +1178,151 @@
           ]
         },
         {
-          "name": "Eliminar género en uso → 409",
+          "name": "Media con 'generos' vacío → 400",
           "request": {
-            "method": "DELETE",
-            "header": [],
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
             "url": {
-              "raw": "{{baseUrl}}/api/generos/{{generoId}}",
+              "raw": "{{baseUrl}}/api/v1/media",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
+                "v1",
+                "media"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"serial\": \"MED-GV-{{$timestamp}}\",\n  \"titulo\": \"Interestelar\",\n  \"sinopsis\": \"Un grupo de exploradores viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.\",\n  \"url\": \"https://ejemplo.com/gv{{$timestamp}}\",\n  \"portada\": \"https://image.tmdb.org/t/p/w500/interestelar.jpg\",\n  \"anoEstreno\": 2014,\n  \"generos\": [],\n  \"director\": \"{{directorId}}\",\n  \"productora\": \"{{productoraId}}\",\n  \"tipo\": \"{{tipoId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Rechaza lista vacía (400)\", () => pm.response.to.have.status(400));",
+                  "pm.test(\"El mensaje explica el motivo\", () => pm.expect(pm.response.json().message).to.include(\"al menos un elemento\"));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Media con un género repetido → 400",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/media",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "media"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"serial\": \"MED-GR-{{$timestamp}}\",\n  \"titulo\": \"Interestelar\",\n  \"sinopsis\": \"Un grupo de exploradores viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.\",\n  \"url\": \"https://ejemplo.com/gr{{$timestamp}}\",\n  \"portada\": \"https://image.tmdb.org/t/p/w500/interestelar.jpg\",\n  \"anoEstreno\": 2014,\n  \"generos\": [\"{{generoId}}\", \"{{generoId}}\"],\n  \"director\": \"{{directorId}}\",\n  \"productora\": \"{{productoraId}}\",\n  \"tipo\": \"{{tipoId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Rechaza géneros repetidos (400)\", () => pm.response.to.have.status(400));",
+                  "pm.test(\"El mensaje explica el motivo\", () => pm.expect(pm.response.json().message).to.include(\"repetidos\"));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Media con más de 5 géneros → 400",
+          "description": "Se envían 6 IDs: el primero es real y los otros tienen formato válido aunque no existen. El servidor revisa el tamaño de la lista antes que la existencia, por eso responde 400 y no 404.",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/media",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "media"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"serial\": \"MED-G6-{{$timestamp}}\",\n  \"titulo\": \"Interestelar\",\n  \"sinopsis\": \"Un grupo de exploradores viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.\",\n  \"url\": \"https://ejemplo.com/g6{{$timestamp}}\",\n  \"portada\": \"https://image.tmdb.org/t/p/w500/interestelar.jpg\",\n  \"anoEstreno\": 2014,\n  \"generos\": [\"{{generoId}}\", \"000000000000000000000001\", \"000000000000000000000002\", \"000000000000000000000003\", \"000000000000000000000004\", \"000000000000000000000005\"],\n  \"director\": \"{{directorId}}\",\n  \"productora\": \"{{productoraId}}\",\n  \"tipo\": \"{{tipoId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Rechaza más de 5 géneros (400)\", () => pm.response.to.have.status(400));",
+                  "pm.test(\"El mensaje explica el motivo\", () => pm.expect(pm.response.json().message).to.include(\"más de 5\"));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Eliminar género en uso → 409",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/generos/{{generoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
                 "generos",
                 "{{generoId}}"
               ]
@@ -1105,12 +1346,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/media/123",
+              "raw": "{{baseUrl}}/api/v1/media/123",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
+                "v1",
                 "media",
                 "123"
               ]
@@ -1140,12 +1382,13 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/media/{{mediaId}}",
+              "raw": "{{baseUrl}}/api/v1/media/{{mediaId}}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
+                "v1",
                 "media",
                 "{{mediaId}}"
               ]
@@ -1169,12 +1412,13 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/generos/{{generoId}}",
+              "raw": "{{baseUrl}}/api/v1/generos/{{generoId}}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
+                "v1",
                 "generos",
                 "{{generoId}}"
               ]
@@ -1198,12 +1442,13 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/generos/{{generoInactivoId}}",
+              "raw": "{{baseUrl}}/api/v1/generos/{{generoInactivoId}}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
+                "v1",
                 "generos",
                 "{{generoInactivoId}}"
               ]
@@ -1227,12 +1472,13 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/directores/{{directorId}}",
+              "raw": "{{baseUrl}}/api/v1/directores/{{directorId}}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
+                "v1",
                 "directores",
                 "{{directorId}}"
               ]
@@ -1256,12 +1502,13 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/productoras/{{productoraId}}",
+              "raw": "{{baseUrl}}/api/v1/productoras/{{productoraId}}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
+                "v1",
                 "productoras",
                 "{{productoraId}}"
               ]
@@ -1285,12 +1532,13 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/tipos/{{tipoId}}",
+              "raw": "{{baseUrl}}/api/v1/tipos/{{tipoId}}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
+                "v1",
                 "tipos",
                 "{{tipoId}}"
               ]
@@ -1314,12 +1562,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/media/{{mediaId}}",
+              "raw": "{{baseUrl}}/api/v1/media/{{mediaId}}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
+                "v1",
                 "media",
                 "{{mediaId}}"
               ]
