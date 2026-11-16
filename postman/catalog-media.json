@@ -723,7 +723,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"serial\": \"{{serial}}\",\n  \"titulo\": \"Interestelar\",\n  \"sinopsis\": \"Un grupo de exploradores viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.\",\n  \"url\": \"{{mediaUrl}}\",\n  \"portada\": \"https://image.tmdb.org/t/p/w500/interestelar.jpg\",\n  \"anoEstreno\": 2014,\n  \"generos\": [\"{{generoId}}\"],\n  \"director\": \"{{directorId}}\",\n  \"productoras\": [\"{{productoraId}}\"],\n  \"tipo\": \"{{tipoId}}\"\n}",
+              "raw": "{\n  \"serial\": \"{{serial}}\",\n  \"titulo\": \"Interestelar\",\n  \"sinopsis\": \"Un grupo de exploradores viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.\",\n  \"url\": \"{{mediaUrl}}\",\n  \"portada\": \"https://image.tmdb.org/t/p/w500/interestelar.jpg\",\n  \"anoEstreno\": 2014,\n  \"generos\": [\"{{generoId}}\"],\n  \"directores\": [\"{{directorId}}\"],\n  \"productoras\": [\"{{productoraId}}\"],\n  \"tipo\": \"{{tipoId}}\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -939,7 +939,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"serial\": \"{{serial}}\",\n  \"titulo\": \"Interestelar\",\n  \"sinopsis\": \"Un grupo de exploradores viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.\",\n  \"url\": \"{{mediaUrl}}\",\n  \"portada\": \"https://image.tmdb.org/t/p/w500/interestelar.jpg\",\n  \"anoEstreno\": 2014,\n  \"generos\": [\"{{generoId}}\"],\n  \"director\": \"{{directorId}}\",\n  \"productoras\": [\"{{productoraId}}\"],\n  \"tipo\": \"{{tipoId}}\"\n}",
+              "raw": "{\n  \"serial\": \"{{serial}}\",\n  \"titulo\": \"Interestelar\",\n  \"sinopsis\": \"Un grupo de exploradores viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.\",\n  \"url\": \"{{mediaUrl}}\",\n  \"portada\": \"https://image.tmdb.org/t/p/w500/interestelar.jpg\",\n  \"anoEstreno\": 2014,\n  \"generos\": [\"{{generoId}}\"],\n  \"directores\": [\"{{directorId}}\"],\n  \"productoras\": [\"{{productoraId}}\"],\n  \"tipo\": \"{{tipoId}}\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -982,7 +982,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"serial\": \"MED-URL-{{$timestamp}}\",\n  \"titulo\": \"Interestelar\",\n  \"sinopsis\": \"Un grupo de exploradores viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.\",\n  \"url\": \"esto no es una url\",\n  \"portada\": \"https://image.tmdb.org/t/p/w500/interestelar.jpg\",\n  \"anoEstreno\": 2014,\n  \"generos\": [\"{{generoId}}\"],\n  \"director\": \"{{directorId}}\",\n  \"productoras\": [\"{{productoraId}}\"],\n  \"tipo\": \"{{tipoId}}\"\n}",
+              "raw": "{\n  \"serial\": \"MED-URL-{{$timestamp}}\",\n  \"titulo\": \"Interestelar\",\n  \"sinopsis\": \"Un grupo de exploradores viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.\",\n  \"url\": \"esto no es una url\",\n  \"portada\": \"https://image.tmdb.org/t/p/w500/interestelar.jpg\",\n  \"anoEstreno\": 2014,\n  \"generos\": [\"{{generoId}}\"],\n  \"directores\": [\"{{directorId}}\"],\n  \"productoras\": [\"{{productoraId}}\"],\n  \"tipo\": \"{{tipoId}}\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1025,7 +1025,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"serial\": \"MED-ANO-{{$timestamp}}\",\n  \"titulo\": \"Interestelar\",\n  \"sinopsis\": \"Un grupo de exploradores viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.\",\n  \"url\": \"https://ejemplo.com/{{$timestamp}}\",\n  \"portada\": \"https://image.tmdb.org/t/p/w500/interestelar.jpg\",\n  \"anoEstreno\": 1800,\n  \"generos\": [\"{{generoId}}\"],\n  \"director\": \"{{directorId}}\",\n  \"productoras\": [\"{{productoraId}}\"],\n  \"tipo\": \"{{tipoId}}\"\n}",
+              "raw": "{\n  \"serial\": \"MED-ANO-{{$timestamp}}\",\n  \"titulo\": \"Interestelar\",\n  \"sinopsis\": \"Un grupo de exploradores viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.\",\n  \"url\": \"https://ejemplo.com/{{$timestamp}}\",\n  \"portada\": \"https://image.tmdb.org/t/p/w500/interestelar.jpg\",\n  \"anoEstreno\": 1800,\n  \"generos\": [\"{{generoId}}\"],\n  \"directores\": [\"{{directorId}}\"],\n  \"productoras\": [\"{{productoraId}}\"],\n  \"tipo\": \"{{tipoId}}\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1068,7 +1068,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"serial\": \"MED-SG-{{$timestamp}}\",\n  \"titulo\": \"Interestelar\",\n  \"sinopsis\": \"Un grupo de exploradores viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.\",\n  \"url\": \"https://ejemplo.com/sg{{$timestamp}}\",\n  \"portada\": \"https://image.tmdb.org/t/p/w500/interestelar.jpg\",\n  \"anoEstreno\": 2014,\n  \"director\": \"{{directorId}}\",\n  \"productoras\": [\"{{productoraId}}\"],\n  \"tipo\": \"{{tipoId}}\"\n}",
+              "raw": "{\n  \"serial\": \"MED-SG-{{$timestamp}}\",\n  \"titulo\": \"Interestelar\",\n  \"sinopsis\": \"Un grupo de exploradores viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.\",\n  \"url\": \"https://ejemplo.com/sg{{$timestamp}}\",\n  \"portada\": \"https://image.tmdb.org/t/p/w500/interestelar.jpg\",\n  \"anoEstreno\": 2014,\n  \"directores\": [\"{{directorId}}\"],\n  \"productoras\": [\"{{productoraId}}\"],\n  \"tipo\": \"{{tipoId}}\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1157,7 +1157,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"serial\": \"MED-IN-{{$timestamp}}\",\n  \"titulo\": \"Interestelar\",\n  \"sinopsis\": \"Un grupo de exploradores viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.\",\n  \"url\": \"https://ejemplo.com/in{{$timestamp}}\",\n  \"portada\": \"https://image.tmdb.org/t/p/w500/interestelar.jpg\",\n  \"anoEstreno\": 2014,\n  \"generos\": [\"{{generoInactivoId}}\"],\n  \"director\": \"{{directorId}}\",\n  \"productoras\": [\"{{productoraId}}\"],\n  \"tipo\": \"{{tipoId}}\"\n}",
+              "raw": "{\n  \"serial\": \"MED-IN-{{$timestamp}}\",\n  \"titulo\": \"Interestelar\",\n  \"sinopsis\": \"Un grupo de exploradores viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.\",\n  \"url\": \"https://ejemplo.com/in{{$timestamp}}\",\n  \"portada\": \"https://image.tmdb.org/t/p/w500/interestelar.jpg\",\n  \"anoEstreno\": 2014,\n  \"generos\": [\"{{generoInactivoId}}\"],\n  \"directores\": [\"{{directorId}}\"],\n  \"productoras\": [\"{{productoraId}}\"],\n  \"tipo\": \"{{tipoId}}\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1200,7 +1200,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"serial\": \"MED-GV-{{$timestamp}}\",\n  \"titulo\": \"Interestelar\",\n  \"sinopsis\": \"Un grupo de exploradores viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.\",\n  \"url\": \"https://ejemplo.com/gv{{$timestamp}}\",\n  \"portada\": \"https://image.tmdb.org/t/p/w500/interestelar.jpg\",\n  \"anoEstreno\": 2014,\n  \"generos\": [],\n  \"director\": \"{{directorId}}\",\n  \"productoras\": [\"{{productoraId}}\"],\n  \"tipo\": \"{{tipoId}}\"\n}",
+              "raw": "{\n  \"serial\": \"MED-GV-{{$timestamp}}\",\n  \"titulo\": \"Interestelar\",\n  \"sinopsis\": \"Un grupo de exploradores viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.\",\n  \"url\": \"https://ejemplo.com/gv{{$timestamp}}\",\n  \"portada\": \"https://image.tmdb.org/t/p/w500/interestelar.jpg\",\n  \"anoEstreno\": 2014,\n  \"generos\": [],\n  \"directores\": [\"{{directorId}}\"],\n  \"productoras\": [\"{{productoraId}}\"],\n  \"tipo\": \"{{tipoId}}\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1244,7 +1244,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"serial\": \"MED-GR-{{$timestamp}}\",\n  \"titulo\": \"Interestelar\",\n  \"sinopsis\": \"Un grupo de exploradores viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.\",\n  \"url\": \"https://ejemplo.com/gr{{$timestamp}}\",\n  \"portada\": \"https://image.tmdb.org/t/p/w500/interestelar.jpg\",\n  \"anoEstreno\": 2014,\n  \"generos\": [\"{{generoId}}\", \"{{generoId}}\"],\n  \"director\": \"{{directorId}}\",\n  \"productoras\": [\"{{productoraId}}\"],\n  \"tipo\": \"{{tipoId}}\"\n}",
+              "raw": "{\n  \"serial\": \"MED-GR-{{$timestamp}}\",\n  \"titulo\": \"Interestelar\",\n  \"sinopsis\": \"Un grupo de exploradores viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.\",\n  \"url\": \"https://ejemplo.com/gr{{$timestamp}}\",\n  \"portada\": \"https://image.tmdb.org/t/p/w500/interestelar.jpg\",\n  \"anoEstreno\": 2014,\n  \"generos\": [\"{{generoId}}\", \"{{generoId}}\"],\n  \"directores\": [\"{{directorId}}\"],\n  \"productoras\": [\"{{productoraId}}\"],\n  \"tipo\": \"{{tipoId}}\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1289,7 +1289,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"serial\": \"MED-G6-{{$timestamp}}\",\n  \"titulo\": \"Interestelar\",\n  \"sinopsis\": \"Un grupo de exploradores viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.\",\n  \"url\": \"https://ejemplo.com/g6{{$timestamp}}\",\n  \"portada\": \"https://image.tmdb.org/t/p/w500/interestelar.jpg\",\n  \"anoEstreno\": 2014,\n  \"generos\": [\"{{generoId}}\", \"000000000000000000000001\", \"000000000000000000000002\", \"000000000000000000000003\", \"000000000000000000000004\", \"000000000000000000000005\"],\n  \"director\": \"{{directorId}}\",\n  \"productoras\": [\"{{productoraId}}\"],\n  \"tipo\": \"{{tipoId}}\"\n}",
+              "raw": "{\n  \"serial\": \"MED-G6-{{$timestamp}}\",\n  \"titulo\": \"Interestelar\",\n  \"sinopsis\": \"Un grupo de exploradores viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.\",\n  \"url\": \"https://ejemplo.com/g6{{$timestamp}}\",\n  \"portada\": \"https://image.tmdb.org/t/p/w500/interestelar.jpg\",\n  \"anoEstreno\": 2014,\n  \"generos\": [\"{{generoId}}\", \"000000000000000000000001\", \"000000000000000000000002\", \"000000000000000000000003\", \"000000000000000000000004\", \"000000000000000000000005\"],\n  \"directores\": [\"{{directorId}}\"],\n  \"productoras\": [\"{{productoraId}}\"],\n  \"tipo\": \"{{tipoId}}\"\n}",
               "options": {
                 "raw": {
                   "language": "json"

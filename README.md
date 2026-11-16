@@ -47,10 +47,11 @@ El proyecto implementa el patrón **Modelo-Vista-Controlador (MVC)** para separa
 El comportamiento del sistema está regido por las siguientes directrices lógicas de datos:
 
 * **Identificación Única:** El `serial` y la `url` de cada producción son únicos. MongoDB restringe los duplicados mediante índices únicos y la API responde `409 Conflict`.
-* **Solo Referencias Activas:** Al crear o editar una producción, los Géneros, el Director y las Productoras deben existir y estar en estado `Activo`. El Tipo solo debe existir (no maneja estado).
+* **Solo Referencias Activas:** Al crear o editar una producción, los Géneros, los Directores y las Productoras deben existir y estar en estado `Activo`. El Tipo solo debe existir (no maneja estado).
 * **Sin Registros Huérfanos:** No se puede eliminar un Género, Director, Productora o Tipo que tenga producciones asociadas (`409 Conflict`).
 * **Formatos Estrictos:** La URL de reproducción y la portada se validan como URLs `http`/`https`, y el año de estreno no puede ser anterior a 1888 (origen del cine).
 * **Varios Géneros:** Una producción ya no tiene un solo género, sino una lista en el campo `generos`. La lista debe tener de 1 a 5 IDs, sin repetidos, y cada género debe existir y estar `Activo`. Si la lista está vacía, pasa de 5, tiene repetidos, un ID no es válido o un género está `Inactivo`, la API responde `400 Bad Request`; si un género no existe, responde `404 Not Found`. El campo antiguo `genero` ya no se acepta y devuelve `400` con un aviso para usar `generos`. Además, no se puede eliminar un género que aparezca en la lista `generos` de alguna producción (`409 Conflict`); en ese caso conviene cambiarlo a `Inactivo` o reasignar las producciones.
+* **Varios Directores:** Una película la pueden dirigir uno o más directores, así que una producción lleva una lista en el campo `directores`, con las mismas reglas que `generos` y `productoras`: de 1 a 5 IDs, sin repetidos, y cada director debe existir y estar `Activo` (`400` si la lista es inválida o un director está `Inactivo`, `404` si no existe). El campo antiguo `director` ya no se acepta y devuelve `400` con un aviso para usar `directores`. No se puede eliminar un director que aparezca en la lista `directores` de alguna producción (`409 Conflict`).
 * **Varias Productoras:** Una película la pueden hacer una o más productoras, así que una producción lleva una lista en el campo `productoras`, con las mismas reglas que `generos`: de 1 a 5 IDs, sin repetidos, y cada productora debe existir y estar `Activo`. Una lista vacía, con más de 5, con repetidos, con un ID inválido o con una productora `Inactivo` responde `400 Bad Request`; si una productora no existe, responde `404 Not Found`. El campo antiguo `productora` ya no se acepta y devuelve `400` con un aviso para usar `productoras`. No se puede eliminar una productora que aparezca en la lista `productoras` de alguna producción (`409 Conflict`).
 
 ---
@@ -100,7 +101,9 @@ node scripts/migrar-productoras.js --ejecutar      # escribe en la base
 ```
 El script se puede repetir sin dañar datos: solo toca las producciones que todavía tienen `productora`.
 
-### f. Arrancar el servidor en modo desarrollo
+Con el campo `director` (un solo ID) se hace igual, con `npm run migrar:directores` y `node scripts/migrar-directores.js --ejecutar`.
+
+### g. Arrancar el servidor en modo desarrollo
 El proyecto utiliza `nodemon` para reiniciarse automáticamente ante cualquier cambio:
 ```bash
 npm run dev
@@ -148,9 +151,9 @@ json
 }
 ```
 
-**Ejemplo de petición `POST /api/v1/media` con varios géneros y varias productoras:**
+**Ejemplo de petición `POST /api/v1/media` con varios géneros, directores y productoras:**
 
-Los campos `generos` y `productoras` son listas con los IDs de 1 a 5 registros activos, sin repetir. Los demás IDs (`director` y `tipo`) siguen siendo un solo valor.
+Los campos `generos`, `directores` y `productoras` son listas con los IDs de 1 a 5 registros activos, sin repetir. El ID de `tipo` sigue siendo un solo valor.
 ```json
 {
   "serial": "PEL-0001",
@@ -160,7 +163,7 @@ Los campos `generos` y `productoras` son listas con los IDs de 1 a 5 registros a
   "portada": "https://catalogo.ejemplo.com/portadas/viaje-a-las-estrellas.jpg",
   "anoEstreno": 2024,
   "generos": ["<id1>", "<id2>"],
-  "director": "<idDirector>",
+  "directores": ["<idDirector1>", "<idDirector2>"],
   "productoras": ["<idProductora1>", "<idProductora2>"],
   "tipo": "<idTipo>"
 }
@@ -176,7 +179,7 @@ Si se envía el campo antiguo `genero` en vez de `generos` (o `productora` en ve
 
 **Filtro por género: `GET /api/v1/media?genero=<id>`**
 
-Devuelve solo las producciones que tienen ese género dentro de su lista `generos`. Los géneros, el director, las productoras y el tipo llegan con sus datos básicos gracias a `populate`. Sin el parámetro, la ruta devuelve todo el catálogo, como antes.
+Devuelve solo las producciones que tienen ese género dentro de su lista `generos`. Los géneros, los directores, las productoras y el tipo llegan con sus datos básicos gracias a `populate`. Sin el parámetro, la ruta devuelve todo el catálogo, como antes.
 
 Respuesta (200 OK):
 ```json
@@ -189,7 +192,10 @@ Respuesta (200 OK):
       { "_id": "<id1>", "nombre": "Ciencia ficción", "estado": "Activo" },
       { "_id": "<id2>", "nombre": "Aventura", "estado": "Activo" }
     ],
-    "director": { "_id": "<idDirector>", "nombres": "Ana Gómez", "estado": "Activo" },
+    "directores": [
+      { "_id": "<idDirector1>", "nombres": "Ana Gómez", "estado": "Activo" },
+      { "_id": "<idDirector2>", "nombres": "Luis Pérez", "estado": "Activo" }
+    ],
     "productoras": [
       { "_id": "<idProductora1>", "nombre": "Estudios Andinos", "eslogan": "Historias que inspiran", "estado": "Activo" },
       { "_id": "<idProductora2>", "nombre": "Cine del Sur", "eslogan": "Cine con raíces", "estado": "Activo" }
@@ -257,7 +263,8 @@ Catalog-Media-API_REST/
 │   └── catalog-media.json
 ├── scripts/
 │   ├── migrar-generos.js
-│   └── migrar-productoras.js
+│   ├── migrar-productoras.js
+│   └── migrar-directores.js
 ├── .env.template
 ├── .gitignore
 ├── package.json

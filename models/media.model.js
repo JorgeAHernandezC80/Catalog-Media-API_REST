@@ -13,7 +13,7 @@ const esUrlValida = (valor) => {
     }
 };
 
-// Límite de elementos en las listas de relaciones (géneros y productoras).
+// Límite de elementos en las listas de relaciones (géneros, directores y productoras).
 // Lo dejamos en una constante para no repetir el número en el validador y en el mensaje.
 const MAX_LISTA = 5;
 
@@ -88,10 +88,10 @@ const MediaSchema = new Schema({
         type: [{ type: Schema.Types.ObjectId, ref: 'Genero' }],
         validate: crearValidadoresLista('un Género', 'géneros')
     },
-    director: {
-        type: Schema.Types.ObjectId,
-        ref: 'Director',
-        required: [true, 'La producción debe tener un Director asignado']
+    // Una producción la pueden dirigir uno o varios directores (de 1 a 5, sin repetir)
+    directores: {
+        type: [{ type: Schema.Types.ObjectId, ref: 'Director' }],
+        validate: crearValidadoresLista('un Director', 'directores')
     },
     // Una producción la pueden hacer una o varias productoras (de 1 a 5, sin repetir)
     productoras: {

@@ -16,19 +16,19 @@ import Tipo from '../models/tipo.model.js';
 // Tipo no tiene estado, solo debe existir (XII).
 const RELACIONES = [
     { campo: 'generos', modelo: Genero, etiqueta: 'El Género', requiereActivo: true },
-    { campo: 'director', modelo: Director, etiqueta: 'El Director', requiereActivo: true },
+    { campo: 'directores', modelo: Director, etiqueta: 'El Director', requiereActivo: true },
     { campo: 'productoras', modelo: Productora, etiqueta: 'La Productora', requiereActivo: true },
     { campo: 'tipo', modelo: Tipo, etiqueta: 'El Tipo', requiereActivo: false }
 ];
 
 // Campos de RELACIONES que son listas de referencias y no un solo ID.
 // Los separamos aquí para que el arreglo RELACIONES conserve su forma.
-const CAMPOS_LISTA = new Set(['generos', 'productoras']);
+const CAMPOS_LISTA = new Set(['generos', 'directores', 'productoras']);
 
 // Máximo de elementos en una lista de referencias (igual que en el modelo)
 const MAX_ELEMENTOS_LISTA = 5;
 
-// Valida una relación que es lista ('generos' o 'productoras').
+// Valida una relación que es lista ('generos', 'directores' o 'productoras').
 // Revisa forma, IDs, repetidos, existencia y estado antes de tocar la base.
 // Devuelve null si todo está bien, o { status, message } si hay un error.
 const validarLista = async (lista, { campo, modelo, etiqueta, requiereActivo }) => {
@@ -71,16 +71,22 @@ const validarLista = async (lista, { campo, modelo, etiqueta, requiereActivo }) 
 };
 
 // Valida las referencias enviadas en el body.
-// - esCreacion = true: las 4 referencias son obligatorias (generos, director, productoras y tipo).
+// - esCreacion = true: las 4 referencias son obligatorias (generos, directores, productoras y tipo).
 // - esCreacion = false (PUT): solo se validan las que vengan en el body.
 // Devuelve null si todo está bien, o { status, message } si hay un error.
 const validarReferencias = async (body, esCreacion) => {
-    // Los campos antiguos 'genero' y 'productora' (un solo ID) ya no existen. Si alguien
+    // Los campos antiguos 'genero', 'director' y 'productora' (un solo ID) ya no existen. Si alguien
     // los sigue enviando, le avisamos en vez de ignorarlos en silencio (Mongoose los descartaría).
     if (body.genero !== undefined && body.generos === undefined) {
         return {
             status: 400,
             message: "El campo 'genero' ya no se usa. Ahora se llama 'generos' y debe ser una lista de IDs de género (de 1 a 5)."
+        };
+    }
+    if (body.director !== undefined && body.directores === undefined) {
+        return {
+            status: 400,
+            message: "El campo 'director' ya no se usa. Ahora se llama 'directores' y debe ser una lista de IDs de director (de 1 a 5)."
         };
     }
     if (body.productora !== undefined && body.productoras === undefined) {
@@ -185,7 +191,7 @@ export const obtenerCatalogo = async (req, res) => {
 
         const catalogo = await consulta
             .populate('generos', 'nombre estado')
-            .populate('director', 'nombres estado')
+            .populate('directores', 'nombres estado')
             .populate('productoras', 'nombre eslogan estado')
             .populate('tipo', 'nombre');
 
@@ -205,7 +211,7 @@ export const obtenerMediaPorId = async (req, res) => {
 
         const contenido = await Media.findById(id)
             .populate('generos')
-            .populate('director')
+            .populate('directores')
             .populate('productoras')
             .populate('tipo');
 
