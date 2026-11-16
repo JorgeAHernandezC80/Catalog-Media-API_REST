@@ -42,7 +42,9 @@ const start = async () => {
     });
   } catch (error) {
     console.error('❌ Error al iniciar el servidor:', error.message);
-    process.exit(1);
+    // exitCode en vez de process.exit(): así el proceso termina con error, pero
+    // primero alcanza a enviar el mensaje a los logs (en Render se perdía).
+    process.exitCode = 1;
   }
 };
 
