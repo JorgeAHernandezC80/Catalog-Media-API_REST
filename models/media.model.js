@@ -13,21 +13,22 @@ const esUrlValida = (valor) => {
     }
 };
 
-// Límite de géneros por producción. Lo dejamos en una constante para no
-// repetir el número en el validador y en el mensaje de error.
-const MAX_GENEROS = 5;
+// Límite de elementos en las listas de relaciones (géneros y productoras).
+// Lo dejamos en una constante para no repetir el número en el validador y en el mensaje.
+const MAX_LISTA = 5;
 
-// Valida la lista de géneros: debe tener entre 1 y MAX_GENEROS elementos y
-// ninguno repetido. Mongoose pone [] por defecto en los arreglos, por eso
+// Crea los validadores de una lista de referencias: debe tener entre 1 y MAX_LISTA
+// elementos y ninguno repetido. Mongoose pone [] por defecto en los arreglos, por eso
 // 'required' no sirve aquí y revisamos el largo a mano.
-const validadoresGeneros = [
+// 'uno' y 'plural' solo se usan para escribir mensajes claros ('un Género', 'géneros').
+const crearValidadoresLista = (uno, plural) => [
     {
         validator: (lista) => Array.isArray(lista) && lista.length >= 1,
-        message: 'La producción debe estar asociada al menos a un Género'
+        message: `La producción debe estar asociada al menos a ${uno}`
     },
     {
-        validator: (lista) => !Array.isArray(lista) || lista.length <= MAX_GENEROS,
-        message: `La producción no puede tener más de ${MAX_GENEROS} géneros`
+        validator: (lista) => !Array.isArray(lista) || lista.length <= MAX_LISTA,
+        message: `La producción no puede tener más de ${MAX_LISTA} ${plural}`
     },
     {
         // Comparamos como texto porque dos ObjectId iguales son objetos distintos
@@ -36,7 +37,7 @@ const validadoresGeneros = [
             const textos = lista.map((id) => String(id));
             return new Set(textos).size === textos.length;
         },
-        message: 'La lista de géneros no puede tener géneros repetidos'
+        message: `La lista de ${plural} no puede tener elementos repetidos`
     }
 ];
 
@@ -85,17 +86,17 @@ const MediaSchema = new Schema({
     // Una producción puede tener varios géneros (de 1 a 5, sin repetir)
     generos: {
         type: [{ type: Schema.Types.ObjectId, ref: 'Genero' }],
-        validate: validadoresGeneros
+        validate: crearValidadoresLista('un Género', 'géneros')
     },
     director: {
         type: Schema.Types.ObjectId,
         ref: 'Director',
         required: [true, 'La producción debe tener un Director asignado']
     },
-    productora: {
-        type: Schema.Types.ObjectId,
-        ref: 'Productora',
-        required: [true, 'La productora es obligatoria']
+    // Una producción la pueden hacer una o varias productoras (de 1 a 5, sin repetir)
+    productoras: {
+        type: [{ type: Schema.Types.ObjectId, ref: 'Productora' }],
+        validate: crearValidadoresLista('una Productora', 'productoras')
     },
     tipo: {
         type: Schema.Types.ObjectId,

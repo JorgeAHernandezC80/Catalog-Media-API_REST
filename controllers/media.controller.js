@@ -17,18 +17,18 @@ import Tipo from '../models/tipo.model.js';
 const RELACIONES = [
     { campo: 'generos', modelo: Genero, etiqueta: 'El Género', requiereActivo: true },
     { campo: 'director', modelo: Director, etiqueta: 'El Director', requiereActivo: true },
-    { campo: 'productora', modelo: Productora, etiqueta: 'La Productora', requiereActivo: true },
+    { campo: 'productoras', modelo: Productora, etiqueta: 'La Productora', requiereActivo: true },
     { campo: 'tipo', modelo: Tipo, etiqueta: 'El Tipo', requiereActivo: false }
 ];
 
 // Campos de RELACIONES que son listas de referencias y no un solo ID.
 // Los separamos aquí para que el arreglo RELACIONES conserve su forma.
-const CAMPOS_LISTA = new Set(['generos']);
+const CAMPOS_LISTA = new Set(['generos', 'productoras']);
 
 // Máximo de elementos en una lista de referencias (igual que en el modelo)
 const MAX_ELEMENTOS_LISTA = 5;
 
-// Valida una relación que es lista (por ejemplo 'generos').
+// Valida una relación que es lista ('generos' o 'productoras').
 // Revisa forma, IDs, repetidos, existencia y estado antes de tocar la base.
 // Devuelve null si todo está bien, o { status, message } si hay un error.
 const validarLista = async (lista, { campo, modelo, etiqueta, requiereActivo }) => {
@@ -71,16 +71,22 @@ const validarLista = async (lista, { campo, modelo, etiqueta, requiereActivo }) 
 };
 
 // Valida las referencias enviadas en el body.
-// - esCreacion = true: las 4 referencias son obligatorias.
+// - esCreacion = true: las 4 referencias son obligatorias (generos, director, productoras y tipo).
 // - esCreacion = false (PUT): solo se validan las que vengan en el body.
 // Devuelve null si todo está bien, o { status, message } si hay un error.
 const validarReferencias = async (body, esCreacion) => {
-    // El campo antiguo 'genero' ya no existe. Si alguien lo sigue enviando,
-    // le avisamos en vez de ignorarlo en silencio (Mongoose lo descartaría).
+    // Los campos antiguos 'genero' y 'productora' (un solo ID) ya no existen. Si alguien
+    // los sigue enviando, le avisamos en vez de ignorarlos en silencio (Mongoose los descartaría).
     if (body.genero !== undefined && body.generos === undefined) {
         return {
             status: 400,
             message: "El campo 'genero' ya no se usa. Ahora se llama 'generos' y debe ser una lista de IDs de género (de 1 a 5)."
+        };
+    }
+    if (body.productora !== undefined && body.productoras === undefined) {
+        return {
+            status: 400,
+            message: "El campo 'productora' ya no se usa. Ahora se llama 'productoras' y debe ser una lista de IDs de productora (de 1 a 5)."
         };
     }
 
@@ -180,7 +186,7 @@ export const obtenerCatalogo = async (req, res) => {
         const catalogo = await consulta
             .populate('generos', 'nombre estado')
             .populate('director', 'nombres estado')
-            .populate('productora', 'nombre eslogan estado')
+            .populate('productoras', 'nombre eslogan estado')
             .populate('tipo', 'nombre');
 
         res.status(200).json(catalogo);
@@ -200,7 +206,7 @@ export const obtenerMediaPorId = async (req, res) => {
         const contenido = await Media.findById(id)
             .populate('generos')
             .populate('director')
-            .populate('productora')
+            .populate('productoras')
             .populate('tipo');
 
         if (!contenido) {

@@ -7,7 +7,8 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "seed": "node seed.script.js"
+    "seed": "node seed.script.js",
+    "migrar:productoras": "node scripts/migrar-productoras.js"
   },
   "keywords": [
     "express",
